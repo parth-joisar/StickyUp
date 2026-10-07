@@ -7,6 +7,18 @@ import org.hibernate.Transaction;
 
 public class UserDAO {
 
+    public User findByEmail(String email) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "FROM User WHERE lower(email) = :email", User.class)
+                    .setParameter("email", email.trim().toLowerCase())
+                    .setMaxResults(1)
+                    .uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     public boolean saveUser(User user) {
 
         Transaction transaction = null;

@@ -862,6 +862,7 @@
     border-color: #9b4f3f !important;
     outline: 2px solid rgba(155,79,63,.12);
 }
+.status-message { margin-top: 12px; color: #456348; font-size: 13px; line-height: 1.5; }
 </style>
 
 </head>
@@ -914,6 +915,7 @@
                 <p>
                     Your ideas are waiting for you.
                 </p>
+                <p class="status-message" id="loginStatus" role="status" aria-live="polite"></p>
 
 
                 <form
@@ -975,8 +977,7 @@
                         </label>
 
 
-                        <a
-                            href="#"
+                        <a href="forgot-password.html"
                             class="forgot"
                         >
                             Forgot password?
@@ -1025,6 +1026,12 @@
     
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+    if (new URLSearchParams(window.location.search).get("reset") === "success") {
+        document.getElementById("loginStatus").textContent =
+            "Your password has been changed. You can sign in now.";
+    }
+
+    
 
     const emailInput =
         document.getElementById("email");
@@ -1079,6 +1086,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+    
     const form = document.querySelector("form");
     const password = document.getElementById("password");
     const error = document.getElementById("passwordError");
