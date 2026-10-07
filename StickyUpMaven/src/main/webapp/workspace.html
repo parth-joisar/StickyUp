@@ -1,0 +1,3050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workspace — StickyUp</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: #151515;
+    color: #eee;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
+}
+
+.app {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+.sidebar {
+    width: 235px;
+    height: 100vh;
+    padding: 25px 18px;
+    background: #191817;
+    border-right: 1px solid #292725;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding-left: 8px;
+    margin-bottom: 42px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 23px;
+    color: #f1e3d2;
+    cursor: pointer;
+    user-select: none;
+}
+
+.logo-notes {
+    width: 34px;
+    height: 34px;
+    position: relative;
+}
+
+.mini-note {
+    position: absolute;
+    width: 23px;
+    height: 23px;
+    border-radius: 6px;
+    border: 1px solid rgba(60,45,35,.16);
+    box-shadow: 0 3px 6px rgba(0,0,0,.18);
+}
+
+.mini-note.back {
+    left: 1px;
+    top: 5px;
+    background: #AFC0A5;
+}
+
+.mini-note.middle {
+    left: 5px;
+    top: 3px;
+    background: #AFC4D2;
+}
+
+.mini-note.front {
+    left: 9px;
+    top: 8px;
+    background: #E3D0BF;
+}
+
+.logo-word {
+    color: #f1e3d2;
+}
+
+.nav-title {
+    padding: 0 10px 10px;
+    color: #625b55;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.nav-item {
+    width: 100%;
+    padding: 12px 13px;
+    margin-bottom: 5px;
+    border: none;
+    border-radius: 11px;
+    background: transparent;
+    color: #8d8781;
+    text-align: left;
+    font-size: 13px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.nav-item:hover {
+    background: #24211f;
+    color: #ddd;
+    transform: translateX(2px);
+}
+
+.nav-item.active {
+    background: #29241f;
+    color: #E3D0BF;
+}
+
+.new-note {
+    width: 100%;
+    margin-top: 22px;
+    padding: 13px;
+    border: none;
+    border-radius: 12px;
+    background: #584837;
+    color: #eee;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.new-note:hover {
+    background: #6a5744;
+    transform: translateY(-2px);
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+}
+
+.main {
+    flex: 1;
+    min-width: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.topbar {
+    height: 70px;
+    padding: 0 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #292725;
+    background: #181716;
+    flex-shrink: 0;
+}
+
+.workspace-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.workspace-title h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 21px;
+    font-weight: 400;
+    color: #e8ddd2;
+}
+
+.workspace-title span {
+    color: #665e57;
+    font-size: 12px;
+}
+
+.top-actions {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.search {
+    width: 190px;
+    height: 38px;
+    padding: 0 13px;
+    border: 1px solid #302d2a;
+    border-radius: 10px;
+    outline: none;
+    background: #201e1c;
+    color: #ddd;
+    font-size: 12px;
+}
+
+.search::placeholder {
+    color: #68625d;
+}
+
+.color-button {
+    width: 38px;
+    height: 38px;
+    border: 1px solid #302d2a;
+    border-radius: 10px;
+    background: #201e1c;
+    color: #d5c9bd;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.profile {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid #5c5044;
+    background: #3c332b;
+    color: #d8c6b3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.profile-wrap {
+    position: relative;
+}
+
+.profile {
+    cursor: pointer;
+}
+
+.profile-menu {
+    position: absolute;
+    top: 48px;
+    right: 0;
+    width: 230px;
+    padding: 16px;
+    background: #211f1d;
+    border: 1px solid #37322e;
+    border-radius: 15px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    z-index: 6000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px) scale(.97);
+    transition: .2s ease;
+}
+
+.profile-menu.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.profile-user {
+    padding-bottom: 13px;
+    border-bottom: 1px solid #37322e;
+    margin-bottom: 10px;
+}
+
+.profile-user strong {
+    display: block;
+    color: #e8ddd2;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.profile-user span {
+    display: block;
+    margin-top: 5px;
+    color: #817970;
+    font-size: 11px;
+    word-break: break-word;
+}
+
+.profile-menu button {
+    width: 100%;
+    padding: 10px 11px;
+    margin-top: 4px;
+    border: none;
+    border-radius: 9px;
+    background: transparent;
+    color: #aaa19a;
+    text-align: left;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.profile-menu button:hover {
+    background: #292522;
+    color: #eee;
+}
+
+.profile-menu .logout-profile {
+    color: #b97870;
+}
+
+.workspace {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: #E3D0BF;
+    background-image: radial-gradient(
+        rgba(70,50,30,.055) .7px,
+        transparent .7px
+    );
+    background-size: 5px 5px;
+    transition: background-color .3s ease;
+}
+
+.workspace-info {
+    position: absolute;
+    top: 22px;
+    left: 25px;
+    z-index: 20;
+    color: #66574a;
+    pointer-events: none;
+}
+
+.workspace-info h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 23px;
+    font-weight: 400;
+}
+
+.workspace-info p {
+    margin-top: 4px;
+    color: #8a7969;
+    font-size: 11px;
+}
+
+.note {
+    padding-top: 35px !important;
+    padding-top: 58px;
+    position: absolute;
+    width: 190px;
+    min-height: 175px;
+    padding: 21px;
+    border-radius: 11px;
+    color: #332b25;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+    box-shadow:
+        0 8px 12px rgba(65,48,35,.18),
+        0 20px 30px rgba(65,48,35,.12);
+    border: 1px solid rgba(80,60,40,.08);
+    transition:
+        box-shadow .2s ease,
+        filter .2s ease,
+        background-color .2s ease;
+}
+
+.note:hover {
+    filter: brightness(1.025);
+}
+
+.note.dragging {
+    cursor: grabbing;
+    box-shadow:
+        0 20px 28px rgba(65,48,35,.25),
+        0 35px 50px rgba(65,48,35,.16);
+}
+
+.note.selected {
+    outline: 3px solid rgba(88,72,55,.45);
+    outline-offset: 4px;
+}
+
+.note h3 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 19px;
+    font-weight: 400;
+    margin-bottom: 14px;
+}
+
+.note p {
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.note h3[contenteditable="true"],
+.note p[contenteditable="true"] {
+    outline: none;
+    cursor: text;
+}
+
+.note h3:focus,
+.note p:focus {
+    border-radius: 5px;
+    background: rgba(255,255,255,.15);
+}
+
+/* NOTE BUTTONS */
+
+.note-actions {
+    top: 8px !important;
+    right: 8px !important;
+    z-index: 20 !important;
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    z-index: 10;
+}
+
+.note-action,
+.note-delete {
+    position: static;
+    width: 25px;
+    height: 25px;
+    border: none;
+    border-radius: 7px;
+    background: rgba(45,32,24,.16);
+    color: rgba(38,27,21,.9);
+    font-size: 15px;
+    line-height: 25px;
+    text-align: center;
+    cursor: pointer;
+    padding: 0;
+    opacity: 0;
+    transition: .2s ease;
+}
+
+.note:hover .note-action,
+.note:hover .note-delete,
+.note.selected .note-action,
+.note.selected .note-delete {
+    opacity: 1;
+}
+
+.note-action:hover,
+.note-delete:hover {
+    background: rgba(60,45,35,.18);
+    transform: scale(1.08);
+}
+
+.note-favorite {
+    color: #7f3f50;
+    font-weight: 700;
+}
+
+.note-favorite.active {
+    color: #7d1834;
+    background: rgba(100,35,55,.16);
+}
+
+.note-pin {
+    color: #604a2d;
+    font-weight: 700;
+}
+
+.note-pin.active {
+    color: #3f2d19;
+    background: rgba(70,50,25,.18);
+}
+
+.note-delete {
+    color: #713a35;
+    font-weight: 700;
+}
+
+/* SETTINGS */
+
+.color-panel {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    width: 250px;
+    padding: 18px;
+    z-index: 5000;
+    background: #211f1d;
+    border: 1px solid #37322e;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px) scale(.97);
+    transition: .2s;
+}
+
+.color-panel.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.settings-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.settings-head h3 {
+    color: #e8ddd2;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.settings-close {
+    border: none;
+    background: transparent;
+    color: #eee;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.color-panel p {
+    color: #756e68;
+    font-size: 11px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.color-target {
+    display: flex;
+    gap: 7px;
+    margin-bottom: 15px;
+}
+
+.target-button {
+    flex: 1;
+    padding: 8px 5px;
+    border: 1px solid #38332f;
+    border-radius: 8px;
+    background: #292522;
+    color: #8e867f;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.target-button.active {
+    background: #584837;
+    color: #e5d9cc;
+    border-color: #584837;
+}
+
+.color-section {
+    margin-top: 17px;
+}
+
+.color-title {
+    color: #9b928b;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 9px;
+}
+
+.colors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.color-choice {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.15);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.color-choice:hover {
+    transform: scale(1.15);
+    border-color: rgba(255,255,255,.55);
+}
+
+.reset-color {
+    width: 100%;
+    margin-top: 16px;
+    padding: 9px;
+    border: 1px solid #3a3531;
+    border-radius: 9px;
+    background: #292522;
+    color: #a59c94;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.empty-message {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    color: #78695d;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.empty-message.show {
+    opacity: 1;
+}
+
+.empty-message h3 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 26px;
+    font-weight: 400;
+}
+
+.empty-message p {
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+@media(max-width:900px) {
+
+    .sidebar {
+        width: 190px;
+    }
+
+    .search {
+        width: 140px;
+    }
+
+    .note {
+        width: 165px;
+    }
+}
+
+
+
+
+
+/* CLEAN DYNAMIC WORKSPACE */
+.workspace {
+    min-width: 0;
+    min-height: 0;
+    overflow: auto;
+}
+
+.note {
+    box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+    .workspace {
+        overflow: auto;
+    }
+
+    .note {
+        width: 165px;
+        min-height: 155px;
+    }
+}
+
+@media (max-width: 700px) {
+    .note {
+        width: 145px;
+        min-height: 140px;
+        padding: 16px;
+        padding-top: 58px !important;
+    }
+
+    .note-actions {
+        top: 8px !important;
+        right: 8px !important;
+    }
+
+    .note-action,
+    .note-delete {
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+        opacity: 1;
+    }
+}
+
+@media (max-width: 480px) {
+    .note {
+        width: 135px;
+        min-height: 130px;
+        padding: 14px;
+        padding-top: 55px !important;
+    }
+
+    .note h3 {
+        font-size: 17px;
+        margin-bottom: 10px;
+    }
+
+    .note p {
+        font-size: 11px;
+        line-height: 1.55;
+    }
+}
+
+
+/* MOBILE SIDEBAR ICONS */
+@media (max-width: 700px) {
+
+    .sidebar {
+        width: 76px;
+        min-width: 76px;
+        padding: 20px 10px;
+    }
+
+    .logo {
+        justify-content: center;
+        padding: 0;
+        margin-bottom: 38px;
+    }
+
+    .logo-word,
+    .nav-title,
+    .sidebar-bottom {
+        display: none;
+    }
+
+    .nav-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 56px;
+        height: 46px;
+        padding: 0;
+        margin: 0 auto 7px;
+        font-size: 0;
+        color: #b8aea4;
+    }
+
+    .nav-item::before {
+        font-size: 21px;
+        line-height: 1;
+    }
+
+    /* All Notes */
+    .nav-title + .nav-item::before {
+        content: "▦";
+    }
+
+    /* Pinned */
+    .nav-title + .nav-item + .nav-item::before {
+        content: "📌";
+    }
+
+    /* Favorites */
+    .nav-title + .nav-item + .nav-item + .nav-item::before {
+        content: "♥";
+    }
+
+    /* Archive */
+    .nav-title + .nav-item + .nav-item + .nav-item + .nav-item::before {
+        content: "▣";
+    }
+
+    .new-note {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 56px;
+        height: 56px;
+        margin: 22px auto 0;
+        padding: 0;
+        font-size: 0;
+    }
+
+    .new-note::before {
+        content: "+";
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 64px;
+        min-width: 64px;
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+
+    .nav-item {
+        width: 50px;
+        height: 44px;
+    }
+
+    .new-note {
+        width: 50px;
+        height: 52px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<aside class="sidebar">
+
+    <div
+        class="logo"
+        onclick="window.location.href='index.html'"
+    >
+        <div class="logo-notes">
+            <span class="mini-note back"></span>
+            <span class="mini-note middle"></span>
+            <span class="mini-note front"></span>
+        </div>
+
+        <span class="logo-word">
+            StickyUp
+        </span>
+    </div>
+
+    <div class="nav-title">
+        Workspace
+    </div>
+
+    <button
+        type="button"
+        class="nav-item active"
+        onclick="showAllNotes()"
+    >
+        ▦ &nbsp; All Notes
+    </button>
+
+    <button
+        type="button"
+        class="nav-item"
+        onclick="showPinned()"
+    >
+        📌 &nbsp; Pinned
+    </button>
+
+    <button
+        type="button"
+        class="nav-item"
+        onclick="showFavorites()"
+    >
+        ♡ &nbsp; Favorites
+    </button>
+
+    <button
+        type="button"
+        class="nav-item"
+        onclick="showArchived()"
+    >
+        ▢ &nbsp; Archive
+    </button>
+
+    <button
+        type="button"
+        class="new-note"
+        onclick="createNote()"
+    >
+        + New Note
+    </button>
+
+    <div class="sidebar-bottom">
+
+        <button
+            type="button"
+            class="nav-item"
+            onclick="openSettings()"
+        >
+            ⚙ &nbsp; Settings
+        </button>
+
+        <button
+            type="button"
+            class="nav-item"
+            onclick="logout()"
+        >
+            ↪ &nbsp; Log out
+        </button>
+
+    </div>
+
+</aside>
+
+<main class="main">
+
+<header class="topbar">
+
+    <div class="workspace-title">
+        <h1>My Ideas</h1>
+        <span>Personal workspace</span>
+    </div>
+
+    <div class="top-actions">
+
+        <input
+            type="search"
+            class="search"
+            id="search"
+            placeholder="Search notes..."
+            oninput="searchNotes()"
+        >
+
+        <button
+            type="button"
+            class="color-button"
+            onclick="openSettings()"
+            title="Settings"
+        >
+            🎨
+        </button>
+
+        <div class="profile-wrap">
+            <button type="button" class="profile" id="profileButton" onclick="toggleProfile(event)">P</button>
+            <div class="profile-menu" id="profileMenu" onclick="event.stopPropagation()">
+                <div class="profile-user">
+                    <strong id="profileName">Loading...</strong>
+                    <span id="profileEmail">Loading...</span>
+                </div>
+                <button type="button" onclick="profileSettings(event)">⚙ &nbsp; Settings</button>
+                <button type="button" class="logout-profile" onclick="logout()">↪ &nbsp; Log out</button>
+            </div>
+        </div>
+
+    </div>
+
+</header>
+
+<section
+    class="workspace"
+    id="workspace"
+>
+
+    <div class="workspace-info">
+        <h2>My Workspace</h2>
+        <p>
+            Move your thoughts wherever they belong.
+        </p>
+    </div>
+
+    <div
+        class="empty-message"
+        id="emptyMessage"
+    >
+        <h3>
+            Your workspace is empty.
+        </h3>
+
+        <p>
+            Create a note and start thinking.
+        </p>
+    </div>
+
+    <div
+        class="color-panel"
+        id="colorPanel"
+    >
+
+        <div class="settings-head">
+
+            <h3>
+                Settings
+            </h3>
+
+            <button
+                type="button"
+                class="settings-close"
+                onclick="closeSettings()"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <p>
+            Change the look of your workspace
+            or selected sticky note.
+        </p>
+
+        <div class="color-target">
+
+            <button
+                type="button"
+                class="target-button active"
+                id="workspaceTarget"
+                onclick="setColorTarget('workspace')"
+            >
+                Workspace
+            </button>
+
+            <button
+                type="button"
+                class="target-button"
+                id="noteTarget"
+                onclick="setColorTarget('note')"
+            >
+                Note
+            </button>
+
+        </div>
+
+        <div
+            id="workspaceColors"
+            class="color-section"
+        >
+
+            <div class="color-title">
+                Workspace color
+            </div>
+
+            <div class="colors">
+
+                <div
+                    class="color-choice"
+                    style="background:#E3D0BF"
+                    onclick="changeWorkspaceColor('#E3D0BF')"
+                ></div>
+
+                <div
+                    class="color-choice"
+                    style="background:#D8D2C8"
+                    onclick="changeWorkspaceColor('#D8D2C8')"
+                ></div>
+
+                <div
+                    class="color-choice"
+                    style="background:#C9D5C0"
+                    onclick="changeWorkspaceColor('#C9D5C0')"
+                ></div>
+
+                <div
+                    class="color-choice"
+                    style="background:#C9D4DD"
+                    onclick="changeWorkspaceColor('#C9D4DD')"
+                ></div>
+
+                <div
+                    class="color-choice"
+                    style="background:#D8C0C0"
+                    onclick="changeWorkspaceColor('#D8C0C0')"
+                ></div>
+
+                <div
+                    class="color-choice"
+                    style="background:#D6C9B8"
+                    onclick="changeWorkspaceColor('#D6C9B8')"
+                ></div>
+
+            </div>
+
+            <button
+                type="button"
+                class="reset-color"
+                onclick="resetWorkspaceColor()"
+            >
+                Reset workspace color
+            </button>
+
+        </div>
+
+        <div
+            id="noteColors"
+            class="color-section"
+            style="display:none"
+        >
+
+            <div class="color-title">
+                Note color
+            </div>
+
+            <div class="colors">
+
+                <div
+                    class="color-choice"
+                    style="background:#F4D98B"
+                    onclick="changeNoteColor('#F4D98B')"
+                ></div>
+
+                <div
+                    class="color-choice"
+                    style="background:#C8A9D8"
+                    onclick="changeNoteColor('#C8A9D8')"
+                ></div>
+
+                <div
+                    class="color-choice"
+                    style="background:#E5A6B8"
+                    onclick="changeNoteColor('#E5A6B8')"
+                ></div>
+
+                <div
+                    class="color-choice"
+                    style="background:#A9CDE3"
+                    onclick="changeNoteColor('#A9CDE3')"
+                ></div>
+
+                <div
+                    class="color-choice"
+                    style="background:#B3D39A"
+                    onclick="changeNoteColor('#B3D39A')"
+                ></div>
+
+                <div
+                    class="color-choice"
+                    style="background:#F2B880"
+                    onclick="changeNoteColor('#F2B880')"
+                ></div>
+
+                <div
+                    class="color-choice"
+                    style="background:#D7BDE2"
+                    onclick="changeNoteColor('#D7BDE2')"
+                ></div>
+
+                <div
+                    class="color-choice"
+                    style="background:#A8D8C8"
+                    onclick="changeNoteColor('#A8D8C8')"
+                ></div>
+
+            </div>
+
+            <button
+                type="button"
+                class="reset-color"
+                onclick="resetSelectedNoteColor()"
+            >
+                Reset selected note
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+</div>
+
+<script>
+
+const workspace =
+    document.getElementById("workspace");
+
+const colorPanel =
+    document.getElementById("colorPanel");
+
+let activeNote = null;
+let selectedNote = null;
+
+let offsetX = 0;
+let offsetY = 0;
+
+let highestZ = 10;
+let currentView = "all";
+
+
+/* SETTINGS */
+
+function openSettings() {
+
+    colorPanel.classList.add("open");
+
+    setColorTarget("workspace");
+}
+
+function closeSettings() {
+
+    colorPanel.classList.remove("open");
+}
+
+function setColorTarget(target) {
+
+    const workspaceTarget =
+        document.getElementById(
+            "workspaceTarget"
+        );
+
+    const noteTarget =
+        document.getElementById(
+            "noteTarget"
+        );
+
+    const workspaceColors =
+        document.getElementById(
+            "workspaceColors"
+        );
+
+    const noteColors =
+        document.getElementById(
+            "noteColors"
+        );
+
+    if (target === "workspace") {
+
+        workspaceTarget.classList.add(
+            "active"
+        );
+
+        noteTarget.classList.remove(
+            "active"
+        );
+
+        workspaceColors.style.display =
+            "block";
+
+        noteColors.style.display =
+            "none";
+
+    } else {
+
+        workspaceTarget.classList.remove(
+            "active"
+        );
+
+        noteTarget.classList.add(
+            "active"
+        );
+
+        workspaceColors.style.display =
+            "none";
+
+        noteColors.style.display =
+            "block";
+
+        if (!selectedNote) {
+
+            alert(
+                "Select a note first."
+            );
+        }
+    }
+}
+
+function changeWorkspaceColor(color) {
+
+    workspace.style.backgroundColor =
+        color;
+
+    localStorage.setItem(
+        "stickyupWorkspaceColor",
+        color
+    );
+}
+
+function resetWorkspaceColor() {
+
+    workspace.style.backgroundColor =
+        "#E3D0BF";
+
+    localStorage.removeItem(
+        "stickyupWorkspaceColor"
+    );
+}
+
+async function changeNoteColor(color) {
+
+    if (!selectedNote) {
+
+        alert(
+            "Select a note first."
+        );
+
+        return;
+    }
+
+    selectedNote.style.backgroundColor =
+        color;
+
+    await saveNote(selectedNote);
+}
+
+async function resetSelectedNoteColor() {
+
+    if (!selectedNote) {
+
+        alert(
+            "Select a note first."
+        );
+
+        return;
+    }
+
+    selectedNote.style.backgroundColor =
+        "#E3D0BF";
+
+    await saveNote(selectedNote);
+}
+
+
+/* DRAG */
+
+function startDrag(event) {
+
+    if (
+        event.target.closest(
+            ".note-actions"
+        )
+    ) {
+        return;
+    }
+
+    if (
+        event.target.isContentEditable
+    ) {
+        return;
+    }
+
+    activeNote =
+        event.currentTarget;
+
+    selectedNote =
+        activeNote;
+
+    document
+        .querySelectorAll(".note")
+        .forEach(note =>
+            note.classList.remove(
+                "selected"
+            )
+        );
+
+    activeNote.classList.add(
+        "selected"
+    );
+
+    highestZ++;
+
+    activeNote.style.zIndex =
+        highestZ;
+
+    activeNote.classList.add(
+        "dragging"
+    );
+
+    activeNote.setPointerCapture(
+        event.pointerId
+    );
+
+    const rect =
+        activeNote.getBoundingClientRect();
+
+    offsetX =
+        event.clientX -
+        rect.left;
+
+    offsetY =
+        event.clientY -
+        rect.top;
+
+    activeNote.addEventListener(
+        "pointermove",
+        dragNote
+    );
+
+    activeNote.addEventListener(
+        "pointerup",
+        stopDrag
+    );
+
+    activeNote.addEventListener(
+        "pointercancel",
+        stopDrag
+    );
+}
+
+function dragNote(event) {
+
+    if (!activeNote) {
+        return;
+    }
+
+    const area =
+        workspace.getBoundingClientRect();
+
+    let x =
+        event.clientX -
+        area.left -
+        offsetX;
+
+    let y =
+        event.clientY -
+        area.top -
+        offsetY;
+
+    const maxX =
+        Math.max(
+            8,
+            workspace.scrollWidth -
+            activeNote.offsetWidth -
+            8
+        );
+
+    const maxY =
+        Math.max(
+            82,
+            workspace.scrollHeight -
+            activeNote.offsetHeight -
+            8
+        );
+
+    x =
+        Math.max(
+            8,
+            Math.min(x, maxX)
+        );
+
+    y =
+        Math.max(
+            82,
+            Math.min(y, maxY)
+        );
+
+    activeNote.style.left =
+        x + "px";
+
+    activeNote.style.top =
+        y + "px";
+
+    activeNote.style.right =
+        "auto";
+
+    activeNote.style.bottom =
+        "auto";
+
+    activeNote.dataset.baseX =
+        String(x);
+
+    activeNote.dataset.baseY =
+        String(y);
+}
+
+async function stopDrag(event) {
+
+    if (!activeNote) {
+        return;
+    }
+
+    const note =
+        activeNote;
+
+    note.classList.remove(
+        "dragging"
+    );
+
+    try {
+
+        note.releasePointerCapture(
+            event.pointerId
+        );
+
+    } catch (error) {}
+
+    note.removeEventListener(
+        "pointermove",
+        dragNote
+    );
+
+    note.removeEventListener(
+        "pointerup",
+        stopDrag
+    );
+
+    note.removeEventListener(
+        "pointercancel",
+        stopDrag
+    );
+
+    activeNote = null;
+
+    await saveNote(note);
+}
+
+
+/* NOTES */
+
+function setupNote(note) {
+
+    if (
+        note.dataset.ready === "true"
+    ) {
+        return;
+    }
+
+    note.dataset.ready = "true";
+
+    note.addEventListener(
+        "pointerdown",
+        startDrag
+    );
+
+    note.querySelectorAll(
+        "[contenteditable='true']"
+    ).forEach(element => {
+
+        element.addEventListener(
+            "blur",
+            saveEditedNote
+        );
+
+        element.addEventListener(
+            "pointerdown",
+            event =>
+                event.stopPropagation()
+        );
+
+        element.addEventListener(
+            "click",
+            event =>
+                event.stopPropagation()
+        );
+
+    });
+}
+
+function renderNote(note) {
+
+    const element =
+        document.createElement("article");
+
+    element.className =
+        "note";
+
+    element.dataset.note =
+        "";
+
+    element.dataset.id =
+        note.id;
+
+    element.dataset.favorite =
+        String(
+            Boolean(note.favorite)
+        );
+
+    element.dataset.pinned =
+        String(
+            Boolean(
+                note.pinned ??
+                note.isPinned ??
+                note.ispinned
+            )
+        );
+
+    element.dataset.archived =
+        String(
+            Boolean(note.archived)
+        );
+
+
+    let x =
+        Number(
+            note.xPosition ??
+            note.xposition
+        );
+
+    let y =
+        Number(
+            note.yPosition ??
+            note.yposition
+        );
+
+    if (!Number.isFinite(x)) {
+        x = 80;
+    }
+
+    if (!Number.isFinite(y)) {
+        y = 100;
+    }
+
+    const noteWidth =
+        window.innerWidth <= 480 ? 135 :
+        window.innerWidth <= 700 ? 145 :
+        window.innerWidth <= 900 ? 165 : 190;
+
+    const noteHeight =
+        window.innerWidth <= 480 ? 130 :
+        window.innerWidth <= 700 ? 140 :
+        175;
+
+    const maxX =
+        Math.max(
+            0,
+            workspace.clientWidth - noteWidth - 8
+        );
+
+    const maxY =
+        Math.max(
+            0,
+            workspace.clientHeight - noteHeight - 8
+        );
+
+    x =
+        Math.max(
+            8,
+            Math.min(x, maxX)
+        );
+
+    y =
+        Math.max(
+            82,
+            Math.min(y, maxY)
+        );
+
+    element.style.left =
+        x + "px";
+
+    element.style.top =
+        y + "px";
+
+    element.style.right =
+        "auto";
+
+    element.style.bottom =
+        "auto";
+
+    element.dataset.baseX =
+        String(x);
+
+    element.dataset.baseY =
+        String(y);
+
+
+    const colors = [
+        "#F4D98B",
+        "#C8A9D8",
+        "#E5A6B8",
+        "#A9CDE3",
+        "#B3D39A",
+        "#F2B880",
+        "#D7BDE2",
+        "#A8D8C8"
+    ];
+
+    element.style.backgroundColor =
+        note.backgroundColor ||
+        colors[
+            Math.abs(
+                Number(note.id) || 0
+            ) % colors.length
+        ];
+
+    highestZ++;
+
+    element.style.zIndex =
+        highestZ;
+
+
+    /* ACTIONS */
+
+    const actions =
+        document.createElement("div");
+
+    actions.className =
+        "note-actions";
+
+
+    /* HEART */
+
+    const favoriteButton =
+        document.createElement("button");
+
+    favoriteButton.type =
+        "button";
+
+    favoriteButton.className =
+        "note-action note-favorite";
+
+    favoriteButton.innerText =
+        note.favorite
+            ? "♥"
+            : "♡";
+
+    favoriteButton.title =
+        note.favorite
+            ? "Remove from favorites"
+            : "Add to favorites";
+
+    if (note.favorite) {
+
+        favoriteButton.classList.add(
+            "active"
+        );
+    }
+
+    favoriteButton.onclick =
+        function(event) {
+
+            event.stopPropagation();
+
+            toggleFavorite(
+                event,
+                favoriteButton
+            );
+        };
+
+
+    /* PIN */
+
+    const pinButton =
+        document.createElement("button");
+
+    pinButton.type =
+        "button";
+
+    pinButton.className =
+        "note-action note-pin";
+
+    pinButton.innerText =
+        note.pinned ? "📌" : "📍";
+
+    pinButton.title =
+        note.pinned
+            ? "Unpin note"
+            : "Pin note";
+
+    if (note.pinned) {
+        pinButton.classList.add("active");
+    }
+
+    pinButton.onclick =
+        function(event) {
+
+            event.stopPropagation();
+
+            togglePin(
+                event,
+                pinButton
+            );
+        };
+
+    /* ARCHIVE */
+
+    const archiveButton =
+        document.createElement("button");
+
+    archiveButton.type =
+        "button";
+
+    archiveButton.className =
+        "note-action note-archive";
+
+    archiveButton.innerText =
+        note.archived
+            ? "↩"
+            : "▣";
+
+    archiveButton.title =
+        note.archived
+            ? "Restore note"
+            : "Archive note";
+
+    archiveButton.onclick =
+        function(event) {
+
+            event.stopPropagation();
+
+            toggleArchive(
+                event,
+                archiveButton
+            );
+        };
+
+
+    /* DELETE */
+
+    const deleteButton =
+        document.createElement("button");
+
+    deleteButton.type =
+        "button";
+
+    deleteButton.className =
+        "note-delete";
+
+    deleteButton.innerText =
+        "🗑";
+
+    deleteButton.title =
+        "Delete note";
+
+    deleteButton.onclick =
+        function(event) {
+
+            event.stopPropagation();
+
+            deleteNote(
+                event,
+                deleteButton
+            );
+        };
+
+
+    actions.appendChild(
+        favoriteButton
+    );
+
+    actions.appendChild(
+        pinButton
+    );
+
+    actions.appendChild(
+        archiveButton
+    );
+
+    actions.appendChild(
+        deleteButton
+    );
+
+    element.appendChild(
+        actions
+    );
+
+
+    /* TITLE */
+
+    const title =
+        document.createElement("h3");
+
+    title.contentEditable =
+        "true";
+
+    title.innerText =
+        note.title ||
+        "New idea";
+
+
+    /* CONTENT */
+
+    const content =
+        document.createElement("p");
+
+    content.contentEditable =
+        "true";
+
+    content.innerText =
+        note.content ||
+        "Write something here...";
+
+
+    element.appendChild(title);
+
+    element.appendChild(content);
+
+    workspace.appendChild(
+        element
+    );
+
+    setupNote(element);
+
+    return element;
+}
+
+
+
+/* DYNAMIC NOTE LAYOUT
+   Desktop: use the user's saved free positions.
+   Small screens: automatically arrange notes without overlap.
+   Pin/Favorite/Archive/Delete are untouched.
+*/
+
+function rememberNotePosition(note) {
+    if (!note.dataset.baseX) {
+        note.dataset.baseX =
+            String(parseFloat(note.style.left) || 8);
+    }
+
+    if (!note.dataset.baseY) {
+        note.dataset.baseY =
+            String(parseFloat(note.style.top) || 82);
+    }
+}
+
+function layoutNotesForScreen() {
+
+    const notes =
+        [...document.querySelectorAll("[data-note]")]
+        .filter(note =>
+            note.style.display !== "none"
+        );
+
+    if (!notes.length) {
+        return;
+    }
+
+    notes.forEach(rememberNotePosition);
+
+    /* DESKTOP */
+    if (window.innerWidth > 900) {
+
+        notes.forEach(note => {
+
+            note.style.left =
+                note.dataset.baseX + "px";
+
+            note.style.top =
+                note.dataset.baseY + "px";
+
+            note.style.right = "auto";
+            note.style.bottom = "auto";
+        });
+
+        workspace.style.minHeight = "";
+        return;
+    }
+
+    const width =
+        window.innerWidth <= 480 ? 135 :
+        window.innerWidth <= 700 ? 145 : 165;
+
+    const height =
+        window.innerWidth <= 480 ? 130 :
+        window.innerWidth <= 700 ? 140 : 155;
+
+    const gap = window.innerWidth <= 480 ? 12 : 18;
+    const side = 12;
+    const top = 92;
+
+    const availableWidth =
+        workspace.clientWidth;
+
+    const columns =
+        Math.max(
+            1,
+            Math.floor(
+                (
+                    availableWidth -
+                    side * 2 +
+                    gap
+                ) /
+                (width + gap)
+            )
+        );
+
+    notes.forEach((note, index) => {
+
+        const column =
+            index % columns;
+
+        const row =
+            Math.floor(index / columns);
+
+        const x =
+            side +
+            column * (width + gap);
+
+        const y =
+            top +
+            row * (height + gap);
+
+        note.style.left =
+            Math.round(x) + "px";
+
+        note.style.top =
+            Math.round(y) + "px";
+
+        note.style.right = "auto";
+        note.style.bottom = "auto";
+    });
+
+    const rows =
+        Math.ceil(
+            notes.length / columns
+        );
+
+    workspace.style.minHeight =
+        Math.max(
+            workspace.clientHeight,
+            top +
+            rows * (height + gap) +
+            25
+        ) + "px";
+}
+
+let layoutTimer = null;
+
+function scheduleDynamicLayout() {
+
+    clearTimeout(layoutTimer);
+
+    layoutTimer =
+        setTimeout(
+            function() {
+                requestAnimationFrame(
+                    layoutNotesForScreen
+                );
+            },
+            60
+        );
+}
+
+window.addEventListener(
+    "resize",
+    scheduleDynamicLayout
+);
+
+/* LOAD */
+
+async function loadNotes() {
+
+    document
+        .querySelectorAll(
+            "[data-note]"
+        )
+        .forEach(note =>
+            note.remove()
+        );
+
+    try {
+
+        const response =
+            await fetch("notes");
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load notes"
+            );
+        }
+
+        const notes =
+            await response.json();
+
+        if (!Array.isArray(notes)) {
+
+            window.location.href =
+                "login.html";
+
+            return;
+        }
+
+        notes.forEach(note => {
+
+            renderNote(note);
+        });
+
+        filterNotes(
+            currentView
+        );
+
+        requestAnimationFrame(
+            layoutNotesForScreen
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to load your notes."
+        );
+    }
+}
+
+
+/* CREATE */
+
+async function createNote() {
+
+    const area =
+        workspace.getBoundingClientRect();
+
+    const count =
+        document.querySelectorAll(
+            "[data-note]"
+        ).length;
+
+    const noteWidth =
+        window.innerWidth <= 480 ? 135 :
+        window.innerWidth <= 700 ? 145 :
+        window.innerWidth <= 900 ? 165 : 190;
+
+    const noteHeight =
+        window.innerWidth <= 700 ? 145 : 180;
+
+    const gap = 22;
+    const left = 25;
+    const top = 100;
+
+    const columns =
+        Math.max(
+            1,
+            Math.floor(
+                (area.width - left * 2 + gap) /
+                (noteWidth + gap)
+            )
+        );
+
+    const column = count % columns;
+    const row = Math.floor(count / columns);
+
+    const x = Math.min(
+        left + column * (noteWidth + gap),
+        Math.max(8, area.width - noteWidth - 8)
+    );
+
+    const y = Math.max(
+        top,
+        top + row * (noteHeight + gap)
+    );
+
+    const colors = [
+        "#F4D98B",
+        "#C8A9D8",
+        "#E5A6B8",
+        "#A9CDE3",
+        "#B3D39A",
+        "#F2B880",
+        "#D7BDE2",
+        "#A8D8C8"
+    ];
+
+    const color =
+        colors[
+            count % colors.length
+        ];
+
+    const formData =
+        new URLSearchParams();
+
+    formData.append(
+        "title",
+        "New idea"
+    );
+
+    formData.append(
+        "content",
+        "Write something here..."
+    );
+
+    formData.append(
+        "x",
+        Math.round(x)
+    );
+
+    formData.append(
+        "y",
+        Math.round(y)
+    );
+
+    formData.append(
+        "backgroundColor",
+        color
+    );
+
+    try {
+
+        const response =
+            await fetch(
+                "notes/create",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+                    },
+                    body: formData
+                }
+            );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Could not create note"
+            );
+        }
+
+        const note =
+            await response.json();
+
+        if (
+            !note ||
+            !note.id
+        ) {
+
+            window.location.href =
+                "login.html";
+
+            return;
+        }
+
+        const element =
+            renderNote(note);
+
+        rememberNotePosition(element);
+
+        selectedNote =
+            element;
+
+        element.classList.add(
+            "selected"
+        );
+
+        element
+            .querySelector("h3")
+            .focus();
+
+        updateEmptyMessage();
+
+        scheduleDynamicLayout();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to create note."
+        );
+    }
+}
+
+
+/* SAVE */
+
+async function saveNote(note) {
+
+    if (
+        !note ||
+        !note.dataset.id
+    ) {
+        return;
+    }
+
+    const title =
+        note
+            .querySelector("h3")
+            .innerText
+            .trim();
+
+    const content =
+        note
+            .querySelector("p")
+            .innerText
+            .trim();
+
+    const x =
+        Math.round(
+            parseFloat(
+                note.style.left
+            ) || 0
+        );
+
+    const y =
+        Math.round(
+            parseFloat(
+                note.style.top
+            ) || 0
+        );
+
+    const backgroundColor =
+        rgbToHex(
+            getComputedStyle(note)
+                .backgroundColor
+        );
+
+    const formData =
+        new URLSearchParams();
+
+    formData.append(
+        "id",
+        note.dataset.id
+    );
+
+    formData.append(
+        "title",
+        title
+    );
+
+    formData.append(
+        "content",
+        content
+    );
+
+    formData.append(
+        "x",
+        x
+    );
+
+    formData.append(
+        "y",
+        y
+    );
+
+    formData.append(
+        "backgroundColor",
+        backgroundColor
+    );
+
+    try {
+
+        const response =
+            await fetch(
+                "notes/update",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+                    },
+                    body: formData
+                }
+            );
+
+        const result =
+            await response.text();
+
+        if (
+            result ===
+            "not_logged_in"
+        ) {
+
+            window.location.href =
+                "login.html";
+
+            return;
+        }
+
+        console.log(
+            "Note saved:",
+            x,
+            y
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Save note failed:",
+            error
+        );
+    }
+}
+
+async function saveEditedNote(event) {
+
+    const note =
+        event.target.closest(
+            ".note"
+        );
+
+    if (note) {
+
+        await saveNote(note);
+    }
+}
+
+
+/* DELETE */
+
+async function deleteNote(
+    event,
+    button
+) {
+
+    event.stopPropagation();
+
+    const note =
+        button.closest(".note");
+
+    if (!note) {
+        return;
+    }
+
+    const formData =
+        new URLSearchParams();
+
+    formData.append(
+        "id",
+        note.dataset.id
+    );
+
+    try {
+
+        const response =
+            await fetch(
+                "notes/delete",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+                    },
+                    body: formData
+                }
+            );
+
+        const result =
+            await response.text();
+
+        if (result !== "success") {
+
+            alert(
+                "Unable to delete note."
+            );
+
+            return;
+        }
+
+        if (
+            selectedNote === note
+        ) {
+
+            selectedNote = null;
+        }
+
+        note.remove();
+
+        updateEmptyMessage();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to delete note."
+        );
+    }
+}
+
+
+/* FAVORITE */
+
+async function toggleFavorite(
+    event,
+    button
+) {
+
+    const note =
+        button.closest(".note");
+
+    if (
+        !note ||
+        !note.dataset.id
+    ) {
+        return;
+    }
+
+    const isFavorite =
+        button.innerText === "♡";
+
+    const formData =
+        new URLSearchParams();
+
+    formData.append(
+        "id",
+        note.dataset.id
+    );
+
+    formData.append(
+        "favorite",
+        isFavorite
+    );
+
+    try {
+
+        const response =
+            await fetch(
+                "notes/favorite",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+                    },
+                    body: formData
+                }
+            );
+
+        const result =
+            await response.text();
+
+        if (result !== "success") {
+
+            alert(
+                "Unable to update favorite."
+            );
+
+            return;
+        }
+
+        button.innerText =
+            isFavorite
+                ? "♥"
+                : "♡";
+
+        button.classList.toggle(
+            "active",
+            isFavorite
+        );
+
+        button.title =
+            isFavorite
+                ? "Remove from favorites"
+                : "Add to favorites";
+
+        note.dataset.favorite =
+            String(isFavorite);
+
+        filterNotes(
+            currentView
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to update favorite."
+        );
+    }
+}
+
+
+/* ARCHIVE */
+
+async function toggleArchive(
+    event,
+    button
+) {
+
+    const note =
+        button.closest(".note");
+
+    if (
+        !note ||
+        !note.dataset.id
+    ) {
+        return;
+    }
+
+    const isArchived =
+        button.innerText === "▣";
+
+    const formData =
+        new URLSearchParams();
+
+    formData.append(
+        "id",
+        note.dataset.id
+    );
+
+    formData.append(
+        "archived",
+        isArchived
+    );
+
+    try {
+
+        const response =
+            await fetch(
+                "notes/archive",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+                    },
+                    body: formData
+                }
+            );
+
+        const result =
+            await response.text();
+
+        if (result !== "success") {
+
+            alert(
+                "Unable to update archive."
+            );
+
+            return;
+        }
+
+        button.innerText =
+            isArchived
+                ? "↩"
+                : "▣";
+
+        button.title =
+            isArchived
+                ? "Restore note"
+                : "Archive note";
+
+        note.dataset.archived =
+            String(isArchived);
+
+        filterNotes(
+            currentView
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to update archive."
+        );
+    }
+}
+
+
+/* PIN */
+
+async function togglePin(
+    event,
+    button
+) {
+
+    const note =
+        button.closest(".note");
+
+    if (
+        !note ||
+        !note.dataset.id
+    ) {
+        return;
+    }
+
+    const isPinned =
+        button.innerText === "📍";
+
+    const formData =
+        new URLSearchParams();
+
+    formData.append(
+        "id",
+        note.dataset.id
+    );
+
+    formData.append(
+        "pinned",
+        isPinned
+    );
+
+    try {
+
+        const response =
+            await fetch(
+                "notes/pin",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+                    },
+                    body: formData
+                }
+            );
+
+        const result =
+            await response.text();
+
+        if (result !== "success") {
+
+            alert(
+                "Unable to update pin."
+            );
+
+            return;
+        }
+
+        button.innerText =
+            isPinned
+                ? "📌"
+                : "📍";
+
+        button.title =
+            isPinned
+                ? "Unpin note"
+                : "Pin note";
+
+        button.classList.toggle(
+            "active",
+            isPinned
+        );
+
+        note.dataset.pinned =
+            String(isPinned);
+
+        filterNotes(
+            currentView
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to update pin."
+        );
+    }
+}
+
+
+/* FILTER */
+
+function filterNotes(view) {
+
+    currentView =
+        view;
+
+    const buttons =
+        document.querySelectorAll(
+            ".nav-item"
+        );
+
+    buttons.forEach(button =>
+        button.classList.remove(
+            "active"
+        )
+    );
+
+    if (view === "all") {
+
+        buttons[0].classList.add(
+            "active"
+        );
+    }
+
+    if (view === "pinned") {
+
+        buttons[1].classList.add(
+            "active"
+        );
+    }
+
+    if (view === "favorites") {
+
+        buttons[2].classList.add(
+            "active"
+        );
+    }
+
+    if (view === "archive") {
+
+        buttons[3].classList.add(
+            "active"
+        );
+    }
+
+    const search =
+        document
+            .getElementById("search")
+            .value
+            .toLowerCase();
+
+    document
+        .querySelectorAll(
+            "[data-note]"
+        )
+        .forEach(note => {
+
+            const favorite =
+                note.dataset.favorite ===
+                "true";
+
+            const pinned =
+                note.dataset.pinned ===
+                "true";
+
+            const archived =
+                note.dataset.archived ===
+                "true";
+
+            const text =
+                note.innerText
+                    .toLowerCase();
+
+            const matchesSearch =
+                text.includes(search);
+
+            let visible = false;
+
+            if (view === "all") {
+
+                visible =
+                    !archived &&
+                    matchesSearch;
+            }
+
+            if (view === "pinned") {
+
+                visible =
+                    pinned &&
+                    !archived &&
+                    matchesSearch;
+            }
+
+            if (view === "favorites") {
+
+                visible =
+                    favorite &&
+                    !archived &&
+                    matchesSearch;
+            }
+
+            if (view === "archive") {
+
+                visible =
+                    archived &&
+                    matchesSearch;
+            }
+
+            note.style.display =
+                visible
+                    ? ""
+                    : "none";
+        });
+
+    updateEmptyMessage();
+
+    scheduleDynamicLayout();
+}
+
+function showAllNotes() {
+
+    filterNotes("all");
+}
+
+function showPinned() {
+
+    filterNotes("pinned");
+}
+
+function showFavorites() {
+
+    filterNotes("favorites");
+}
+
+function showArchived() {
+
+    filterNotes("archive");
+}
+
+function searchNotes() {
+
+    filterNotes(
+        currentView
+    );
+}
+
+
+/* OTHER */
+
+
+function toggleProfile(event) {
+    if (event) event.stopPropagation();
+    const menu = document.getElementById("profileMenu");
+    menu.classList.toggle("open");
+    if (menu.classList.contains("open")) loadProfile();
+}
+
+function closeProfile() {
+    const menu = document.getElementById("profileMenu");
+    if (menu) menu.classList.remove("open");
+}
+
+function profileSettings(event) {
+    event.stopPropagation();
+    closeProfile();
+    colorPanel.classList.add("open");
+    setColorTarget("workspace");
+}
+
+async function loadProfile() {
+    try {
+        const response = await fetch("profile", { method: "GET", cache: "no-store" });
+        if (!response.ok) return;
+        const user = await response.json();
+        if (!user) return;
+        const profileName =
+            user.name ||
+            user.username ||
+            user.fullName ||
+            "User";
+
+        document.getElementById("profileName").innerText =
+            profileName;
+
+        document.getElementById("profileEmail").innerText =
+            user.email || "";
+
+        const profileButton =
+            document.getElementById("profileButton");
+
+        if (profileButton) {
+            profileButton.innerText =
+                profileName.trim().charAt(0).toUpperCase() || "P";
+        }
+    } catch (error) {
+        console.error("Unable to load profile:", error);
+    }
+}
+
+function logout() {
+    window.location.replace("logout");
+}
+
+function updateEmptyMessage() {
+
+    const message =
+        document.getElementById(
+            "emptyMessage"
+        );
+
+    const visibleNotes =
+        Array.from(
+            document.querySelectorAll(
+                "[data-note]"
+            )
+        )
+        .filter(
+            note =>
+                note.style.display !==
+                "none"
+        );
+
+    message.classList.toggle(
+        "show",
+        visibleNotes.length === 0
+    );
+}
+
+function rgbToHex(rgb) {
+
+    if (!rgb) {
+
+        return "#E3D0BF";
+    }
+
+    if (
+        rgb.startsWith("#")
+    ) {
+
+        return rgb;
+    }
+
+    const values =
+        rgb.match(/\d+/g);
+
+    if (
+        !values ||
+        values.length < 3
+    ) {
+
+        return "#E3D0BF";
+    }
+
+    return "#" +
+        values
+            .slice(0, 3)
+            .map(
+                value =>
+                    Number(value)
+                        .toString(16)
+                        .padStart(
+                            2,
+                            "0"
+                        )
+            )
+            .join("")
+            .toUpperCase();
+}
+
+
+/* CLOSE SETTINGS */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const topButton =
+            document.querySelector(
+                ".color-button"
+            );
+
+        if (
+            colorPanel.classList.contains(
+                "open"
+            ) &&
+            !colorPanel.contains(
+                event.target
+            ) &&
+            !event.target.closest(
+                ".nav-item"
+            ) &&
+            !topButton.contains(
+                event.target
+            ) &&
+            !event.target.closest(
+                ".profile-menu"
+            )
+        ) {
+
+            closeSettings();
+        }
+    }
+);
+
+
+/* LOAD SAVED WORKSPACE COLOR */
+
+const savedWorkspaceColor =
+    localStorage.getItem(
+        "stickyupWorkspaceColor"
+    );
+
+if (savedWorkspaceColor) {
+
+    workspace.style.backgroundColor =
+        savedWorkspaceColor;
+}
+
+
+/* START */
+
+loadNotes();
+window.addEventListener("pageshow", async function () {
+
+    try {
+
+        const response = await fetch(
+            "notes",
+            {
+                method: "GET",
+                cache: "no-store"
+            }
+        );
+
+        if (!response.ok) {
+            window.location.replace("login.html");
+            return;
+        }
+
+        const notes = await response.json();
+
+        if (!Array.isArray(notes)) {
+            window.location.replace("login.html");
+        }
+
+    } catch (error) {
+
+        window.location.replace("login.html");
+    }
+
+});
+
+</script>
+
+</body>
+</html>
