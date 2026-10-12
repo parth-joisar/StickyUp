@@ -6,7 +6,6 @@ StickyUp is a sticky-note workspace for capturing, arranging, and organizing ide
 
 - Create an account and sign in
 - Organize notes in a workspace
-- Recover an account password with a one-time email link
 - Browse the interactive landing-page demo
 
 ## Desktop page previews
@@ -53,21 +52,6 @@ StickyUp is a sticky-note workspace for capturing, arranging, and organizing ide
    ```
 
 5. Deploy `target/StickyUp.war` to Tomcat 10.1. Open the Tomcat address in a browser and choose **Start creating**.
-
-## Password reset email
-
-Password recovery sends a one-time link that expires after 30 minutes. Configure these environment variables on the server:
-
-| Variable | Purpose |
-| --- | --- |
-| `SMTP_HOST` | SMTP server host |
-| `SMTP_PORT` | SMTP port; defaults to `587` |
-| `SMTP_USERNAME` | SMTP account name |
-| `SMTP_PASSWORD` | SMTP password or app password |
-| `MAIL_FROM` | Verified sender address |
-| `APP_BASE_URL` | Public HTTPS origin, without a trailing slash |
-
-Keep mail credentials in the server's secret/environment-variable settings. Do not commit them to the repository. More details are in [`PASSWORD-RESET-SETUP.txt`](PASSWORD-RESET-SETUP.txt).
 
 ## Deployment
 
