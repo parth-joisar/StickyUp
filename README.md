@@ -8,26 +8,37 @@ StickyUp is a sticky-note workspace for capturing, arranging, and organizing ide
 - Organize notes in a workspace
 - Browse the interactive landing-page demo
 
+## Repository structure
+
+```text
+StickyUp/
+├── Documents/                  Setup and deployment guides
+├── Implementation/
+│   └── StickyUpMaven/           Java web app, Maven, Docker, and Railway files
+├── Screenshots/                 Full-page desktop page previews
+└── README.md
+```
+
 ## Desktop page previews
 
 <details>
 <summary>Landing page</summary>
 
-![StickyUp homepage desktop preview](docs/previews/stickyup-home.svg)
+![StickyUp homepage desktop preview](Screenshots/StickyUp_Homepage.svg)
 
 </details>
 
 <details>
 <summary>Sign-in page</summary>
 
-![StickyUp login desktop preview](docs/previews/stickyup-login.svg)
+![StickyUp login desktop preview](Screenshots/StickyUp_SignIn.svg)
 
 </details>
 
 <details>
 <summary>Account creation page</summary>
 
-![StickyUp sign-up desktop preview](docs/previews/stickyup-signup.svg)
+![StickyUp sign-up desktop preview](Screenshots/StickyUp_SignUp.svg)
 
 </details>
 
@@ -43,19 +54,20 @@ StickyUp is a sticky-note workspace for capturing, arranging, and organizing ide
 ## Run locally
 
 1. Install JDK 17, Maven, and MySQL Server.
-2. Create the local database and user using [`database-setup.sql`](database-setup.sql). See [`DATABASE-SETUP.txt`](DATABASE-SETUP.txt) for details.
-3. The default local database settings are in `src/main/resources/hibernate.cfg.xml`. Set `DB_URL`, or `DB_HOST`, `DB_PORT`, and `DB_NAME`, plus `DB_USER` and `DB_PASSWORD`, to override them.
-4. Build the WAR:
+2. Create the local database and user using [`Implementation/StickyUpMaven/database-setup.sql`](Implementation/StickyUpMaven/database-setup.sql). See [`Documents/DATABASE-SETUP.txt`](Documents/DATABASE-SETUP.txt) for details.
+3. The default local database settings are in `Implementation/StickyUpMaven/src/main/resources/hibernate.cfg.xml`. Set `DB_URL`, or `DB_HOST`, `DB_PORT`, and `DB_NAME`, plus `DB_USER` and `DB_PASSWORD`, to override them.
+4. Build the WAR from the project folder:
 
    ```bash
+   cd Implementation/StickyUpMaven
    mvn clean package
    ```
 
-5. Deploy `target/StickyUp.war` to Tomcat 10.1. Open the Tomcat address in a browser and choose **Start creating**.
+5. Deploy `Implementation/StickyUpMaven/target/StickyUp.war` to Tomcat 10.1. Open the Tomcat address in a browser and choose **Start creating**.
 
 ## Deployment
 
-The repository includes a `Dockerfile` for building the WAR and running it on Tomcat. [`DEPLOY-RAILWAY.md`](DEPLOY-RAILWAY.md) describes the Railway environment-variable setup; the same database variables can be supplied by another host.
+See [`Documents/DEPLOY-RAILWAY.md`](Documents/DEPLOY-RAILWAY.md) for Railway setup instructions.
 
 ## Security note
 

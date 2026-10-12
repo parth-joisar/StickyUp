@@ -1,0 +1,9 @@
+StickyUp database setup
+=======================
+
+1. Start MySQL Server.
+2. Run `Implementation/StickyUpMaven/database-setup.sql` in MySQL Workbench or the MySQL client using an administrator account.
+3. Open `Implementation/StickyUpMaven` as the Maven project in NetBeans, then Clean and Build it.
+4. Open `signup.html` in the deployed app and create an account.
+
+The Hibernate configuration is at `Implementation/StickyUpMaven/src/main/resources/hibernate.cfg.xml`. Update it to match your local MySQL credentials.

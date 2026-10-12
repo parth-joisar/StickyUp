@@ -1,9 +1,0 @@
-StickyUp database setup
-=======================
-
-1. Start MySQL Server.
-2. Run database-setup.sql in MySQL Workbench or the MySQL client using an administrator account.
-3. In NetBeans, Clean and Build the Maven project, then deploy/run it again.
-4. Open signup.html and create an account. The /signup controller stores the submitted name, email, and password through Hibernate. On success it redirects to login.html.
-
-The Hibernate configuration expects localhost:3306, schema stickyup, username stickyup_user, and password 1234. If your local MySQL uses different credentials, update src/main/resources/hibernate.cfg.xml to match.
