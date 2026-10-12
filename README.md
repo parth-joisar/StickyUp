@@ -9,6 +9,29 @@ StickyUp is a sticky-note workspace for capturing, arranging, and organizing ide
 - Recover an account password with a one-time email link
 - Browse the interactive landing-page demo
 
+## Desktop page previews
+
+<details>
+<summary>Landing page</summary>
+
+![StickyUp homepage desktop preview](docs/previews/stickyup-home.svg)
+
+</details>
+
+<details>
+<summary>Sign-in page</summary>
+
+![StickyUp login desktop preview](docs/previews/stickyup-login.svg)
+
+</details>
+
+<details>
+<summary>Account creation page</summary>
+
+![StickyUp sign-up desktop preview](docs/previews/stickyup-signup.svg)
+
+</details>
+
 ## Technology
 
 - Java 17
@@ -53,4 +76,3 @@ The repository includes a `Dockerfile` for building the WAR and running it on To
 ## Security note
 
 The current account implementation stores passwords as plain text. This project is suitable for development and demonstration only until password hashing is implemented. Do not use real user accounts or real passwords with it.
-
