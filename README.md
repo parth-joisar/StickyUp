@@ -2,6 +2,10 @@
 
 StickyUp is a sticky-note workspace for capturing, arranging, and organizing ideas. The project is a Java web application packaged as a Maven WAR.
 
+<p align="center">
+  <img src="Screenshots/StickyUp_Mockup.svg" alt="StickyUp workspace shown on desktop and phone" width="100%">
+</p>
+
 ## Features
 
 - Create an account and sign in
