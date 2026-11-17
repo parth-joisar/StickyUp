@@ -15,7 +15,7 @@ StickyUp/
 ├── Documents/                  Setup and deployment guides
 ├── Implementation/
 │   └── StickyUpMaven/           Java web app, Maven, Docker, and Railway files
-├── Screenshots/                 Full-page desktop page previews
+├── Screenshots/                 Desktop page previews
 └── README.md
 ```
 
@@ -39,6 +39,20 @@ StickyUp/
 <summary>Account creation page</summary>
 
 ![StickyUp sign-up desktop preview](Screenshots/StickyUp_SignUp.svg)
+
+</details>
+
+<details>
+<summary>Workspace</summary>
+
+![StickyUp workspace desktop preview](Screenshots/StickyUp_Workspace.svg)
+
+</details>
+
+<details>
+<summary>Password reset request</summary>
+
+![StickyUp password reset desktop preview](Screenshots/StickyUp_PasswordReset.svg)
 
 </details>
 
