@@ -2,7 +2,7 @@
 <title id="title">StickyUp app mockup</title>
 <desc id="desc">A warm editorial product mockup showing StickyUp's visual sticky-note workspace on a desktop monitor and phone.</desc>
 <defs>
-  <linearGradient id="bg" x2="0" y2="1"><stop stop-color="#5d383e"/><stop offset="1" stop-color="#442b30"/></linearGradient>
+  <linearGradient id="bg" x2="0" y2="1"><stop stop-color="#f1e4d6"/><stop offset="1" stop-color="#e5d2c0"/></linearGradient>
   <linearGradient id="paper" x2="0" y2="1"><stop stop-color="#f1e2d2"/><stop offset="1" stop-color="#dfc8b2"/></linearGradient>
   <pattern id="grain" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#4a332c" opacity=".07"/></pattern>
   <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#180f12" flood-opacity=".35"/></filter>
@@ -10,10 +10,13 @@
   <clipPath id="phoneScreen"><rect x="1208" y="390" width="146" height="286" rx="17"/></clipPath>
 </defs>
 <rect width="1500" height="950" fill="url(#bg)"/>
-<path d="M95 510C105 315 263 217 450 233c204 18 342-88 522-56 183 33 334 166 345 356 13 209-151 334-344 340-184 6-328-74-508-36C273 879 83 739 95 510Z" fill="#ead7c4" opacity=".98"/>
-<g fill="#ead7c4" font-family="Fraunces,Georgia,serif" text-anchor="middle">
-  <text x="750" y="96" font-size="50" font-weight="600" letter-spacing="-.7">▧ StickyUp</text>
-  <text x="750" y="143" font-size="17" opacity=".78" letter-spacing="3">A PLACE FOR YOUR THOUGHTS</text>
+<path d="M95 510C105 315 263 217 450 233c204 18 342-88 522-56 183 33 334 166 345 356 13 209-151 334-344 340-184 6-328-74-508-36C273 879 83 739 95 510Z" fill="#75464b" opacity=".96"/>
+<g font-family="Fraunces,Georgia,serif">
+  <rect x="606" y="48" width="34" height="34" rx="8" fill="#a8c9df" transform="rotate(-11 606 48)"/>
+  <rect x="619" y="43" width="34" height="34" rx="8" fill="#b3d39a" transform="rotate(8 619 43)"/>
+  <rect x="632" y="51" width="34" height="34" rx="8" fill="#e3d0bf" stroke="#75464b" stroke-width="1.5" transform="rotate(-3 632 51)"/>
+  <text x="676" y="83" fill="#75464b" font-size="48" font-weight="600" letter-spacing="-.7">StickyUp</text>
+  <text x="750" y="143" text-anchor="middle" fill="#75464b" font-size="17" opacity=".88" letter-spacing="3">A PLACE FOR YOUR THOUGHTS</text>
 </g>
 <!-- Desktop display -->
 <g filter="url(#shadow)">
@@ -83,5 +86,5 @@
     </g>
   </g>
 </g>
-<text x="750" y="895" text-anchor="middle" fill="#ead7c4" opacity=".76" font-family="Fraunces,Georgia,serif" font-size="16" letter-spacing="2">THINK. PLACE. CREATE.</text>
+<text x="750" y="895" text-anchor="middle" fill="#ead7c4" opacity=".9" font-family="Fraunces,Georgia,serif" font-size="16" letter-spacing="2">THINK. PLACE. CREATE.</text>
 </svg>
