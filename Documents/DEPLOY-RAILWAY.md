@@ -29,3 +29,26 @@ The Hibernate configuration reads these variables at startup. DB_URL can be used
 ## 3. Publish the app
 
 After the first successful deploy, open the web service Settings, then Networking, and generate a Railway domain. Set the service public HTTP port to 8080 if Railway asks which port to expose.
+
+## 4. Review manual password reset requests
+
+If SMTP is not configured or reset email delivery fails, the forgot-password form saves a request in MySQL without storing the password or reset token. The user receives a generic confirmation. Requests are saved for review even when the email does not match an account.
+
+In the Railway MySQL query console, list pending requests:
+
+```sql
+SELECT id, email, requested_at, status
+FROM password_reset_requests
+WHERE status = 'PENDING'
+ORDER BY requested_at ASC;
+```
+
+After reviewing a request, mark it reviewed:
+
+```sql
+UPDATE password_reset_requests
+SET status = 'REVIEWED'
+WHERE id = REQUEST_ID;
+```
+
+Only handle requests for verified account owners. Password values are currently stored in plain text by this demo application; do not use real or reused passwords.
