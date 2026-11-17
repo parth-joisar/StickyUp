@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="950" viewBox="0 0 1500 950" role="img" aria-labelledby="title desc">
+<title id="title">StickyUp app mockup</title>
+<desc id="desc">A warm editorial product mockup showing StickyUp's visual sticky-note workspace on a desktop monitor and phone.</desc>
+<defs>
+  <linearGradient id="bg" x2="0" y2="1"><stop stop-color="#f1e4d6"/><stop offset="1" stop-color="#e5d2c0"/></linearGradient>
+  <linearGradient id="paper" x2="0" y2="1"><stop stop-color="#f1e2d2"/><stop offset="1" stop-color="#dfc8b2"/></linearGradient>
+  <pattern id="grain" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#4a332c" opacity=".07"/></pattern>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#180f12" flood-opacity=".35"/></filter>
+  <clipPath id="screen"><rect x="340" y="230" width="820" height="480" rx="12"/></clipPath>
+  <clipPath id="phoneScreen"><rect x="1208" y="390" width="146" height="286" rx="17"/></clipPath>
+</defs>
+<rect width="1500" height="950" fill="url(#bg)"/>
+<path d="M95 510C105 315 263 217 450 233c204 18 342-88 522-56 183 33 334 166 345 356 13 209-151 334-344 340-184 6-328-74-508-36C273 879 83 739 95 510Z" fill="#75464b" opacity=".96"/>
+<g font-family="Fraunces,Georgia,serif">
+  <rect x="606" y="48" width="34" height="34" rx="8" fill="#a8c9df" transform="rotate(-11 606 48)"/>
+  <rect x="619" y="43" width="34" height="34" rx="8" fill="#b3d39a" transform="rotate(8 619 43)"/>
+  <rect x="632" y="51" width="34" height="34" rx="8" fill="#e3d0bf" stroke="#75464b" stroke-width="1.5" transform="rotate(-3 632 51)"/>
+  <text x="676" y="83" fill="#75464b" font-size="48" font-weight="600" letter-spacing="-.7">StickyUp</text>
+  <text x="750" y="143" text-anchor="middle" fill="#75464b" font-size="17" opacity=".88" letter-spacing="3">A PLACE FOR YOUR THOUGHTS</text>
+</g>
+<!-- Desktop display -->
+<g filter="url(#shadow)">
+  <rect x="300" y="190" width="900" height="560" rx="32" fill="#171313"/>
+  <rect x="323" y="213" width="854" height="514" rx="20" fill="#0f0d0e"/>
+  <g clip-path="url(#screen)">
+    <rect x="340" y="230" width="820" height="480" fill="#e3d0bf"/>
+    <rect x="340" y="230" width="820" height="480" fill="url(#grain)"/>
+    <rect x="340" y="230" width="164" height="480" fill="#191817"/>
+    <g font-family="Fraunces,Georgia,serif">
+      <text x="362" y="268" fill="#f1e3d2" font-size="18">▧ StickyUp</text>
+      <text x="362" y="305" fill="#746a61" font-size="10" letter-spacing="1.2">WORKSPACE</text>
+      <rect x="352" y="318" width="140" height="31" rx="8" fill="#29241f"/>
+      <text x="365" y="339" fill="#e3d0bf" font-size="12">▦  All Notes</text>
+      <text x="365" y="374" fill="#9d958e" font-size="12">📌  Pinned</text>
+      <text x="365" y="408" fill="#9d958e" font-size="12">♡  Favorites</text>
+      <text x="365" y="442" fill="#9d958e" font-size="12">▢  Archive</text>
+      <rect x="357" y="463" width="130" height="35" rx="9" fill="#584837"/>
+      <text x="422" y="486" text-anchor="middle" fill="#f7eee6" font-size="12">+ New Note</text>
+      <rect x="504" y="230" width="656" height="48" fill="#181716"/>
+      <text x="527" y="261" fill="#e8ddd2" font-size="16">My Ideas</text>
+      <text x="610" y="260" fill="#81776e" font-size="10">Personal workspace</text>
+      <rect x="941" y="241" width="150" height="27" rx="7" fill="#201e1c" stroke="#38332f"/>
+      <text x="953" y="259" fill="#776e66" font-size="10">Search notes...</text>
+      <circle cx="1120" cy="254" r="14" fill="#3c332b" stroke="#5c5044"/>
+      <text x="1120" y="259" text-anchor="middle" fill="#ead8c5" font-size="11">P</text>
+      <text x="527" y="317" fill="#66574a" font-size="17">My Ideas</text>
+      <text x="527" y="337" fill="#8a7969" font-size="9">A little space to think clearly.</text>
+    </g>
+    <g font-family="Fraunces,Georgia,serif" fill="#332b25" filter="url(#shadow)">
+      <rect x="540" y="372" width="174" height="145" rx="8" fill="#f4d98b" transform="rotate(-3 540 372)"/>
+      <text x="559" y="407" font-size="17">Project Idea</text><text x="559" y="438" font-size="11">Build something simple,</text><text x="559" y="459" font-size="11">useful and beautiful.</text>
+      <rect x="762" y="360" width="180" height="165" rx="8" fill="#c8a9d8" transform="rotate(2 762 360)"/>
+      <text x="781" y="397" font-size="17">Things to do</text><text x="781" y="429" font-size="11">☐  Design UI</text><text x="781" y="453" font-size="11">☐  Create database</text><text x="781" y="477" font-size="11">☐  Build login</text>
+      <rect x="982" y="395" width="145" height="132" rx="8" fill="#b3d39a" transform="rotate(-2 982 395)"/>
+      <text x="1000" y="430" font-size="16">Next steps</text><text x="1000" y="460" font-size="10">Sketch the flow</text><text x="1000" y="480" font-size="10">and share it.</text>
+      <rect x="627" y="555" width="180" height="125" rx="8" fill="#a8c9df" transform="rotate(2 627 555)"/>
+      <text x="647" y="592" font-size="16">Remember</text><text x="647" y="621" font-size="10">Keep important ideas</text><text x="647" y="641" font-size="10">where you can see them.</text>
+      <rect x="865" y="551" width="175" height="128" rx="8" fill="#e5a6b8" transform="rotate(-2 865 551)"/>
+      <text x="884" y="588" font-size="16">Ideas</text><text x="884" y="617" font-size="10">Make room for</text><text x="884" y="637" font-size="10">new possibilities.</text>
+    </g>
+  </g>
+  <path d="M265 750h970l-32 65H297Z" fill="#171313"/>
+  <path d="M655 750h190l28 65H627Z" fill="#211a1c"/>
+  <rect x="524" y="813" width="452" height="19" rx="10" fill="#120f10"/>
+</g>
+<!-- Phone -->
+<g filter="url(#shadow)">
+  <rect x="1184" y="360" width="194" height="350" rx="30" fill="#161112"/>
+  <rect x="1194" y="371" width="174" height="328" rx="23" fill="#130f10"/>
+  <g clip-path="url(#phoneScreen)">
+    <rect x="1208" y="390" width="146" height="286" fill="url(#paper)"/>
+    <rect x="1208" y="390" width="146" height="286" fill="url(#grain)"/>
+    <rect x="1256" y="390" width="50" height="10" rx="5" fill="#171313"/>
+    <g font-family="Fraunces,Georgia,serif">
+      <text x="1221" y="428" fill="#584837" font-size="12">▧ StickyUp</text>
+      <text x="1221" y="460" fill="#66574a" font-size="16">My Ideas</text>
+      <text x="1221" y="477" fill="#8a7969" font-size="8">A little space to think.</text>
+      <rect x="1220" y="496" width="120" height="67" rx="7" fill="#f4d98b"/>
+      <text x="1230" y="518" fill="#332b25" font-size="12">Project Idea</text>
+      <text x="1230" y="538" fill="#554a40" font-size="8">Build something useful.</text>
+      <rect x="1220" y="575" width="120" height="67" rx="7" fill="#c8a9d8"/>
+      <text x="1230" y="597" fill="#332b25" font-size="12">Things to do</text>
+      <text x="1230" y="617" fill="#554a40" font-size="8">☐  Sketch the flow</text>
+      <rect x="1221" y="651" width="118" height="18" rx="8" fill="#584837"/>
+      <text x="1280" y="664" text-anchor="middle" fill="#f7eee6" font-size="8">+ New Note</text>
+    </g>
+  </g>
+</g>
+<text x="750" y="895" text-anchor="middle" fill="#ead7c4" opacity=".9" font-family="Fraunces,Georgia,serif" font-size="16" letter-spacing="2">THINK. PLACE. CREATE.</text>
+</svg>
