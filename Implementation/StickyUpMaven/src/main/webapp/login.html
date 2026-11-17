@@ -869,6 +869,7 @@
     outline: 2px solid rgba(155,79,63,.12);
 }
 .status-message { margin-top: 12px; color: #456348; font-size: 13px; line-height: 1.5; }
+.status-message.error { color: #9b4f3f; font-weight: 700; }
 </style>
 
 </head>
@@ -1033,11 +1034,15 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const query = new URLSearchParams(window.location.search);
+    const loginStatus = document.getElementById("loginStatus");
     if (query.get("expired") === "true") {
-        document.getElementById("loginStatus").textContent =
+        loginStatus.textContent =
             "Your session ended. Sign in again to continue.";
+    } else if (query.get("error") === "true") {
+        loginStatus.textContent = "Incorrect email or password. Please try again.";
+        loginStatus.classList.add("error");
     } else if (query.get("reset") === "success") {
-        document.getElementById("loginStatus").textContent =
+        loginStatus.textContent =
             "Your password has been changed. You can sign in now.";
     }
 
