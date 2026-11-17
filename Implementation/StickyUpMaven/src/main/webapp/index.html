@@ -7,7 +7,24 @@
 
 <title>StickyUp</title>
 
+
 <style>
+@font-face {
+    font-family: "Fraunces";
+    src: url("assets/fonts/Fraunces-Variable.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Fraunces";
+    src: url("assets/fonts/Fraunces-Italic-Variable.ttf") format("truetype");
+    font-style: italic;
+    font-weight: 100 900;
+    font-display: swap;
+}
+
 
 * {
     margin: 0;
@@ -22,7 +39,7 @@ html {
 body {
     background: #151515;
     color: #eee;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Fraunces", Georgia, serif;
     overflow-x: hidden;
 }
 
@@ -65,10 +82,7 @@ nav {
     align-items: center;
     gap: 11px;
 
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+    font-family: "Fraunces", Georgia, serif;
 
     font-size: 25px;
 
@@ -354,13 +368,10 @@ nav {
 
     margin: 22px auto;
 
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+    font-family: "Fraunces", Georgia, serif;
 
     font-size:
-        clamp(50px,7vw,82px);
+        clamp(48px,7vw,90px);
 
     font-weight: 400;
 
@@ -479,10 +490,7 @@ nav {
 
     color: #66574a;
 
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+    font-family: "Fraunces", Georgia, serif;
 
     border-bottom:
         1px solid #b9a38d;
@@ -609,10 +617,7 @@ nav {
 }
 
 .note h3 {
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+    font-family: "Fraunces", Georgia, serif;
 
     font-size: 19px;
 
@@ -717,10 +722,7 @@ nav {
 }
 
 .how h2 {
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+    font-family: "Fraunces", Georgia, serif;
 
     font-size:
         clamp(42px,5vw,55px);
@@ -808,10 +810,7 @@ nav {
 }
 
 .number {
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+    font-family: "Fraunces", Georgia, serif;
 
     font-size: 45px;
 }
@@ -829,10 +828,7 @@ nav {
 }
 
 .step h3 {
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+    font-family: "Fraunces", Georgia, serif;
 
     font-size: 24px;
 
@@ -896,7 +892,7 @@ nav {
     background: #fbf6ef;
     box-shadow: 0 14px 30px rgba(55, 40, 28, .18);
     color: #443a31;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Fraunces", Georgia, serif;
 }
 
 .preview-topbar {
@@ -911,7 +907,7 @@ nav {
 }
 
 .preview-brand {
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: "Fraunces", Georgia, serif;
     font-size: 16px;
     font-weight: 700;
 }
@@ -964,7 +960,7 @@ nav {
 }
 
 .preview-icon::before {
-    font: 12px/1 Arial, Helvetica, sans-serif;
+    font: 12px/1 "Fraunces", Georgia, serif;
 }
 
 .preview-icon.icon-board::before { content: "\25A6"; }
@@ -992,7 +988,7 @@ nav {
 
 .preview-main h3 {
     margin: 5px 0 4px;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: "Fraunces", Georgia, serif;
     font-size: 22px;
     font-weight: 400;
 }
@@ -1019,7 +1015,7 @@ nav {
 .preview-card strong {
     display: block;
     margin-bottom: 7px;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: "Fraunces", Georgia, serif;
     font-size: 12px;
 }
 
@@ -1064,10 +1060,7 @@ nav {
     }
 }
 .story-text h2 {
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+    font-family: "Fraunces", Georgia, serif;
 
     font-size:
         clamp(40px,5vw,52px);
@@ -1104,10 +1097,7 @@ nav {
     box-shadow:
         0 12px 25px rgba(50,35,20,.2);
 
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+    font-family: "Fraunces", Georgia, serif;
 
     font-size: 14px;
 }
@@ -1172,10 +1162,7 @@ nav {
 }
 
 .cta h2 {
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+    font-family: "Fraunces", Georgia, serif;
 
     font-size:
         clamp(42px,6vw,60px);
@@ -1278,7 +1265,7 @@ footer {
     }
 
     .hero h1 {
-        font-size: 50px;
+        font-size: clamp(46px, 7vw, 56px);
 
         letter-spacing: -2px;
     }
@@ -1359,7 +1346,7 @@ footer {
     }
 
     .hero h1 {
-        font-size: 43px;
+        font-size: 42px;
     }
 
     .desk {
@@ -1440,7 +1427,7 @@ footer {
     border-radius: 8px;
     background: rgba(45, 35, 28, .72);
     color: #f1e3d2;
-    font: 11px Arial, Helvetica, sans-serif;
+    font: 11px "Fraunces", Georgia, serif;
     line-height: 1;
     white-space: nowrap;
     opacity: 0;
@@ -1499,7 +1486,7 @@ footer {
     top: 8px;
     left: 9px;
     display: none;
-    font: 11px Arial, Helvetica, sans-serif;
+    font: 11px "Fraunces", Georgia, serif;
     background: rgba(50,38,28,.75);
     color: #f1e3d2;
     padding: 4px 7px;
@@ -1529,7 +1516,7 @@ footer {
 
 .tool-symbol {
     display: inline-block;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Fraunces", Georgia, serif;
     font-size: 14px;
     line-height: 1;
     margin-right: 2px;

@@ -7,7 +7,24 @@
 
     <title>Login — StickyUp</title>
 
-    <style>
+
+<style>
+@font-face {
+    font-family: "Fraunces";
+    src: url("assets/fonts/Fraunces-Variable.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Fraunces";
+    src: url("assets/fonts/Fraunces-Italic-Variable.ttf") format("truetype");
+    font-style: italic;
+    font-weight: 100 900;
+    font-display: swap;
+}
+
 
     * {
         margin: 0;
@@ -26,10 +43,7 @@
 
         color: #eee;
 
-        font-family:
-            Arial,
-            Helvetica,
-            sans-serif;
+        font-family: "Fraunces", Georgia, serif;
 
         display: flex;
 
@@ -178,10 +192,7 @@
 
         gap: 11px;
 
-        font-family:
-            Georgia,
-            "Times New Roman",
-            serif;
+        font-family: "Fraunces", Georgia, serif;
 
         font-size: 27px;
 
@@ -469,10 +480,7 @@
 
     .login-content h1 {
 
-        font-family:
-            Georgia,
-            "Times New Roman",
-            serif;
+        font-family: "Fraunces", Georgia, serif;
 
         font-size: 42px;
 
@@ -550,10 +558,7 @@
 
         font-size: 14px;
 
-        font-family:
-            Arial,
-            Helvetica,
-            sans-serif;
+        font-family: "Fraunces", Georgia, serif;
 
         transition:
             border .2s ease,
@@ -849,7 +854,8 @@
     }
 
     </style>
-    
+
+
 <style>
 .password-error {
     margin: 7px 0 0;
@@ -1023,15 +1029,19 @@
     </div>
 
 
-    
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    if (new URLSearchParams(window.location.search).get("reset") === "success") {
+    const query = new URLSearchParams(window.location.search);
+    if (query.get("expired") === "true") {
+        document.getElementById("loginStatus").textContent =
+            "Your session ended. Sign in again to continue.";
+    } else if (query.get("reset") === "success") {
         document.getElementById("loginStatus").textContent =
             "Your password has been changed. You can sign in now.";
     }
 
-    
+
 
     const emailInput =
         document.getElementById("email");
@@ -1086,7 +1096,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    
+
     const form = document.querySelector("form");
     const password = document.getElementById("password");
     const error = document.getElementById("passwordError");

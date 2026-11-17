@@ -1,35 +1,34 @@
 package com.mycompany.stickyupmaven.controller;
 
-import jakarta.servlet.http.HttpServletResponse;
+import com.mycompany.stickyupmaven.service.SessionRegistry;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.CacheControl;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class LogoutController {
 
-    @GetMapping("/logout")
-    public String logout(
-            HttpSession session,
-            HttpServletResponse response) {
+    private final SessionRegistry sessionRegistry;
 
-        session.invalidate();
+    public LogoutController(SessionRegistry sessionRegistry) {
+        this.sessionRegistry = sessionRegistry;
+    }
 
-        response.setHeader(
-                "Cache-Control",
-                "no-cache, no-store, must-revalidate"
-        );
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            sessionRegistry.remove(session.getId());
+            session.invalidate();
+        }
 
-        response.setHeader(
-                "Pragma",
-                "no-cache"
-        );
-
-        response.setDateHeader(
-                "Expires",
-                0
-        );
-
-        return "redirect:/login.html";
+        return ResponseEntity.noContent()
+                .cacheControl(CacheControl.noStore())
+                .header("Pragma", "no-cache")
+                .header("Expires", "0")
+                .build();
     }
 }

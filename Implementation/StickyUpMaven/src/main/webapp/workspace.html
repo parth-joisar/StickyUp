@@ -5,7 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Workspace — StickyUp</title>
 
+
 <style>
+@font-face {
+    font-family: "Fraunces";
+    src: url("assets/fonts/Fraunces-Variable.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Fraunces";
+    src: url("assets/fonts/Fraunces-Italic-Variable.ttf") format("truetype");
+    font-style: italic;
+    font-weight: 100 900;
+    font-display: swap;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -16,7 +33,7 @@ body {
     min-height: 100vh;
     background: #151515;
     color: #eee;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Fraunces", Georgia, serif;
     overflow: hidden;
 }
 
@@ -43,7 +60,7 @@ body {
     gap: 11px;
     padding-left: 8px;
     margin-bottom: 42px;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: "Fraunces", Georgia, serif;
     font-size: 23px;
     color: #f1e3d2;
     cursor: pointer;
@@ -168,7 +185,7 @@ body {
 }
 
 .workspace-title h1 {
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: "Fraunces", Georgia, serif;
     font-size: 21px;
     font-weight: 400;
     color: #e8ddd2;
@@ -266,7 +283,7 @@ body {
 .profile-user strong {
     display: block;
     color: #e8ddd2;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: "Fraunces", Georgia, serif;
     font-size: 17px;
     font-weight: 400;
 }
@@ -324,7 +341,7 @@ body {
 }
 
 .workspace-info h2 {
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: "Fraunces", Georgia, serif;
     font-size: 23px;
     font-weight: 400;
 }
@@ -374,7 +391,7 @@ body {
 }
 
 .note h3 {
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: "Fraunces", Georgia, serif;
     font-size: 19px;
     font-weight: 400;
     margin-bottom: 14px;
@@ -502,7 +519,7 @@ body {
 
 .settings-head h3 {
     color: #e8ddd2;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: "Fraunces", Georgia, serif;
     font-size: 17px;
     font-weight: 400;
 }
@@ -605,7 +622,7 @@ body {
 }
 
 .empty-message h3 {
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: "Fraunces", Georgia, serif;
     font-size: 26px;
     font-weight: 400;
 }
@@ -613,6 +630,178 @@ body {
 .empty-message p {
     margin-top: 8px;
     font-size: 13px;
+}
+
+.session-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, .64);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .2s ease, visibility .2s ease;
+}
+
+.session-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.session-dialog {
+    width: min(580px, 100%);
+    max-height: min(82vh, 680px);
+    overflow: auto;
+    padding: 24px;
+    border: 1px solid #403a34;
+    border-radius: 18px;
+    background: #1d1b19;
+    color: #eee;
+    box-shadow: 0 28px 80px rgba(0, 0, 0, .5);
+}
+
+.session-dialog-header,
+.session-dialog-footer,
+.session-item-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.session-dialog-header h2 {
+    color: #f1e3d2;
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.session-close {
+    width: 34px;
+    height: 34px;
+    border: 1px solid #39332d;
+    border-radius: 9px;
+    background: #292522;
+    color: #ddd;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.session-description {
+    margin: 10px 0 18px;
+    color: #9a9188;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.session-status {
+    min-height: 20px;
+    margin-bottom: 10px;
+    color: #bcb2a8;
+    font-size: 12px;
+}
+
+.session-status.error {
+    color: #e39a92;
+}
+
+.session-list {
+    display: grid;
+    gap: 9px;
+}
+
+.session-item {
+    padding: 14px;
+    border: 1px solid #35302b;
+    border-radius: 12px;
+    background: #24211f;
+}
+
+.session-item strong {
+    color: #eee3d8;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.session-current {
+    flex-shrink: 0;
+    padding: 4px 8px;
+    border-radius: 99px;
+    background: #3d493b;
+    color: #cbd8c6;
+    font-size: 10px;
+}
+
+.session-item p {
+    margin-top: 7px;
+    color: #999087;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.session-dialog-footer {
+    margin-top: 18px;
+    padding-top: 15px;
+    border-top: 1px solid #35302b;
+}
+
+.session-count {
+    color: #a39a91;
+    font-size: 12px;
+}
+
+.session-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.session-actions button {
+    min-height: 38px;
+    padding: 0 12px;
+    border: 1px solid #484039;
+    border-radius: 9px;
+    background: #292522;
+    color: #e2d6ca;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.session-actions .revoke-sessions {
+    border-color: #79514c;
+    color: #e6a39b;
+}
+
+.session-actions button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+@media (max-width: 520px) {
+    .session-dialog {
+        padding: 19px;
+    }
+
+    .session-dialog-header h2 {
+        font-size: 22px;
+    }
+
+    .session-dialog-footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .session-actions {
+        width: 100%;
+    }
+
+    .session-actions button {
+        flex: 1;
+        padding: 0 8px;
+    }
 }
 
 @media(max-width:900px) {
@@ -918,6 +1107,7 @@ body {
                     <span id="profileEmail">Loading...</span>
                 </div>
                 <button type="button" onclick="profileSettings(event)">⚙ &nbsp; Settings</button>
+                <button type="button" onclick="openSessionManager(event)">▣ &nbsp; Sessions</button>
                 <button type="button" class="logout-profile" onclick="logout()">↪ &nbsp; Log out</button>
             </div>
         </div>
@@ -1138,6 +1328,25 @@ body {
 
 </div>
 
+<div class="session-overlay" id="sessionOverlay" onclick="if (event.target === this) closeSessionManager()">
+    <section class="session-dialog" role="dialog" aria-modal="true" aria-labelledby="sessionDialogTitle">
+        <header class="session-dialog-header">
+            <h2 id="sessionDialogTitle">Sessions and devices</h2>
+            <button type="button" class="session-close" onclick="closeSessionManager()" aria-label="Close session manager">×</button>
+        </header>
+        <p class="session-description">Review signed-in devices. Sessions expire after 30 minutes without activity.</p>
+        <p class="session-status" id="sessionStatus" role="status" aria-live="polite">Loading sessions…</p>
+        <div class="session-list" id="sessionList"></div>
+        <footer class="session-dialog-footer">
+            <span class="session-count" id="sessionCount"></span>
+            <div class="session-actions">
+                <button type="button" class="revoke-sessions" id="revokeSessionsButton" onclick="revokeOtherSessions()" disabled>Log out other devices</button>
+                <button type="button" onclick="closeSessionManager()">Done</button>
+            </div>
+        </footer>
+    </section>
+</div>
+
 <script>
 
 const workspace =
@@ -1154,6 +1363,15 @@ let offsetY = 0;
 
 let highestZ = 10;
 let currentView = "all";
+
+const authenticatedFetch = window.fetch.bind(window);
+window.fetch = async function(...args) {
+    const response = await authenticatedFetch(...args);
+    if (response.status === 401) {
+        window.location.replace("login.html?expired=true");
+    }
+    return response;
+};
 
 
 /* SETTINGS */
@@ -2011,6 +2229,10 @@ async function loadNotes() {
         const response =
             await fetch("notes");
 
+        if (response.status === 401) {
+            return;
+        }
+
         if (!response.ok) {
 
             throw new Error(
@@ -2861,6 +3083,120 @@ function profileSettings(event) {
     setColorTarget("workspace");
 }
 
+async function openSessionManager(event) {
+    if (event) event.stopPropagation();
+    closeProfile();
+    document.getElementById("sessionOverlay").classList.add("open");
+    await loadSessions();
+}
+
+function closeSessionManager() {
+    document.getElementById("sessionOverlay").classList.remove("open");
+}
+
+function setSessionStatus(message, isError = false) {
+    const status = document.getElementById("sessionStatus");
+    status.textContent = message;
+    status.classList.toggle("error", isError);
+}
+
+async function loadSessions() {
+    const list = document.getElementById("sessionList");
+    const revokeButton = document.getElementById("revokeSessionsButton");
+    list.replaceChildren();
+    document.getElementById("sessionCount").textContent = "";
+    revokeButton.disabled = true;
+    setSessionStatus("Loading sessions…");
+
+    try {
+        const response = await fetch("sessions", {
+            method: "GET",
+            cache: "no-store",
+            headers: { "Accept": "application/json" }
+        });
+
+        if (response.status === 401) {
+            window.location.replace("login.html?expired=true");
+            return;
+        }
+        if (!response.ok) throw new Error("Unable to load sessions.");
+
+        const sessions = await response.json();
+        sessions.forEach(session => {
+            const item = document.createElement("article");
+            item.className = "session-item";
+
+            const heading = document.createElement("div");
+            heading.className = "session-item-heading";
+
+            const device = document.createElement("strong");
+            device.textContent = session.device || "Unknown device";
+            heading.appendChild(device);
+
+            if (session.current) {
+                const badge = document.createElement("span");
+                badge.className = "session-current";
+                badge.textContent = "This device";
+                heading.appendChild(badge);
+            }
+
+            const activity = document.createElement("p");
+            activity.textContent = "Last active " + new Date(session.lastActiveAt).toLocaleString();
+
+            const signedIn = document.createElement("p");
+            signedIn.textContent = "Signed in " + new Date(session.createdAt).toLocaleString();
+
+            item.append(heading, activity, signedIn);
+            list.appendChild(item);
+        });
+
+        const otherSessions = sessions.filter(session => !session.current).length;
+        document.getElementById("sessionCount").textContent =
+            sessions.length + (sessions.length === 1 ? " active session" : " active sessions");
+        revokeButton.disabled = otherSessions === 0;
+        revokeButton.dataset.otherCount = String(otherSessions);
+        setSessionStatus(sessions.length ? "Your signed-in devices:" : "No active sessions were found.");
+    } catch (error) {
+        console.error(error);
+        setSessionStatus("Could not load sessions. Please try again.", true);
+    }
+}
+
+async function revokeOtherSessions() {
+    const revokeButton = document.getElementById("revokeSessionsButton");
+    const otherCount = Number(revokeButton.dataset.otherCount || 0);
+    if (revokeButton.disabled || otherCount === 0) return;
+    if (!window.confirm("Log out of " + otherCount + " other device(s)? This device will stay signed in.")) return;
+
+    revokeButton.disabled = true;
+    setSessionStatus("Signing out other devices…");
+    try {
+        const response = await fetch("sessions/revoke-others", {
+            method: "POST",
+            cache: "no-store",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: "{}"
+        });
+
+        if (response.status === 401) {
+            window.location.replace("login.html?expired=true");
+            return;
+        }
+        if (!response.ok) throw new Error("Unable to sign out other devices.");
+
+        const result = await response.json();
+        await loadSessions();
+        setSessionStatus("Signed out " + result.revoked + " other device(s).");
+    } catch (error) {
+        console.error(error);
+        setSessionStatus("Could not sign out other devices. Please try again.", true);
+        revokeButton.disabled = false;
+    }
+}
+
 async function loadProfile() {
     try {
         const response = await fetch("profile", { method: "GET", cache: "no-store" });
@@ -2891,8 +3227,19 @@ async function loadProfile() {
     }
 }
 
-function logout() {
-    window.location.replace("logout");
+async function logout() {
+    try {
+        const response = await fetch("logout", {
+            method: "POST",
+            cache: "no-store",
+            credentials: "same-origin"
+        });
+        if (!response.ok) throw new Error("Logout failed.");
+        window.location.replace("login.html");
+    } catch (error) {
+        console.error(error);
+        alert("Could not log out right now. Please try again.");
+    }
 }
 
 function updateEmptyMessage() {
@@ -2996,6 +3343,10 @@ document.addEventListener(
     }
 );
 
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeSessionManager();
+});
+
 
 /* LOAD SAVED WORKSPACE COLOR */
 
@@ -3027,14 +3378,14 @@ window.addEventListener("pageshow", async function () {
         );
 
         if (!response.ok) {
-            window.location.replace("login.html");
+            window.location.replace("login.html?expired=true");
             return;
         }
 
         const notes = await response.json();
 
         if (!Array.isArray(notes)) {
-            window.location.replace("login.html");
+            window.location.replace("login.html?expired=true");
         }
 
     } catch (error) {

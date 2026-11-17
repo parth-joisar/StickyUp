@@ -9,7 +9,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.mycompany.stickyupmaven.controller")
+@ComponentScan({
+        "com.mycompany.stickyupmaven.controller",
+        "com.mycompany.stickyupmaven.service"
+})
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
