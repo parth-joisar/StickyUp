@@ -42,7 +42,6 @@
 
         <mapping class="com.mycompany.stickyupmaven.model.User"/>
         <mapping class="com.mycompany.stickyupmaven.model.Note"/>
-        <mapping class="com.mycompany.stickyupmaven.model.PasswordResetToken"/>
         <mapping class="com.mycompany.stickyupmaven.model.PasswordResetRequest"/>
 
     </session-factory>
