@@ -54,14 +54,26 @@ public class PasswordResetController {
                 sendEmail(mailSender, normalizedEmail, resetLink);
             }
         } catch (IllegalStateException e) {
-            return "redirect:/forgot-password.html?status=unavailable";
+            return saveManualRequest(normalizedEmail);
         } catch (Exception e) {
-            System.err.println("Could not send a password reset email.");
+            System.err.println("Could not send a password reset email; saving a manual request.");
             e.printStackTrace();
+            return saveManualRequest(normalizedEmail);
         }
 
         // This response is the same whether the email exists or not.
         return "redirect:/forgot-password.html?status=sent";
+    }
+
+    private String saveManualRequest(String email) {
+        try {
+            resetDAO.saveManualRequest(email);
+            return "redirect:/forgot-password.html?status=pending";
+        } catch (Exception e) {
+            System.err.println("Could not save a manual password reset request.");
+            e.printStackTrace();
+            return "redirect:/forgot-password.html?status=unavailable";
+        }
     }
 
     @PostMapping("/reset-password")
