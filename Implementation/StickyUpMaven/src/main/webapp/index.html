@@ -4,6 +4,10 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
 
 <title>StickyUp</title>
 
@@ -1550,6 +1554,11 @@ footer {
 }
 
 </style>
+<style>
+body { font-family: "Public Sans", Arial, sans-serif; }
+button, input, select, textarea { font-family: "Public Sans", Arial, sans-serif; }
+.demo-tools button i { font-size: 1.1em; vertical-align: -0.08em; }
+</style>
 </head>
 
 
@@ -1648,11 +1657,11 @@ footer {
 <section class="desk-section">
 
 <div class="demo-tools">
-    <button type="button" id="addDemoNote"><span class="tool-symbol">+</span> Add note</button>
-    <button type="button" id="resetDemoNotes"><span class="tool-symbol">&#8635;</span> Reset</button>
-    <button type="button" id="colorDemoNote"><span class="color-symbol" aria-hidden="true"></span> Color</button>
-    <button type="button" id="favoriteDemoNote"><span class="tool-symbol">&#9829;</span> Favorite</button>
-    <button type="button" id="pinDemoNote"><span class="tool-symbol">&#9632;</span> Pin</button>
+<button type="button" id="addDemoNote"><i class="ri-add-line" aria-hidden="true"></i> Add note</button>
+    <button type="button" id="resetDemoNotes"><i class="ri-reset-left-line" aria-hidden="true"></i> Reset</button>
+<button type="button" id="colorDemoNote"><i class="ri-palette-line" aria-hidden="true"></i> Color</button>
+    <button type="button" id="favoriteDemoNote"><i class="ri-heart-line" aria-hidden="true"></i> Favorite</button>
+    <button type="button" id="pinDemoNote"><i class="ri-pushpin-line" aria-hidden="true"></i> Pin</button>
     <span class="demo-count">5 demo notes</span>
 </div>
 

@@ -4,6 +4,10 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
 
 <title>Join — StickyUp</title>
 
@@ -739,6 +743,10 @@ body::before {
 }
 
 </style>
+<style>
+    body { font-family: "Public Sans", Arial, sans-serif; }
+    button, input, select, textarea { font-family: "Public Sans", Arial, sans-serif; }
+</style>
 
 
 
@@ -880,8 +888,10 @@ body::before {
                             type="button"
                             class="show-password"
                             onclick="togglePassword('password', this)"
+                            title="Show password"
+                            aria-label="Show password"
                         >
-                            Show
+                            <i class="ri-eye-line" aria-hidden="true"></i>
                         </button>
 
                     </div>
@@ -912,8 +922,10 @@ body::before {
                             type="button"
                             class="show-password"
                             onclick="togglePassword('confirmPassword', this)"
+                            title="Show password"
+                            aria-label="Show password"
                         >
-                            Show
+                            <i class="ri-eye-line" aria-hidden="true"></i>
                         </button>
 
                     </div>
@@ -1002,16 +1014,18 @@ function togglePassword(
     ) {
 
         input.type = "text";
-
-        button.textContent =
-            "Hide";
+        button.innerHTML =
+            '<i class="ri-eye-off-line" aria-hidden="true"></i>';
+        button.title = "Hide password";
+        button.setAttribute("aria-label", "Hide password");
 
     } else {
 
         input.type = "password";
-
-        button.textContent =
-            "Show";
+        button.innerHTML =
+            '<i class="ri-eye-line" aria-hidden="true"></i>';
+        button.title = "Show password";
+        button.setAttribute("aria-label", "Show password");
     }
 }
 

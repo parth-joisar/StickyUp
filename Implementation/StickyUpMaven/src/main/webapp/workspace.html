@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
 <title>Workspace — StickyUp</title>
 
 
@@ -33,7 +37,7 @@ body {
     min-height: 100vh;
     background: #151515;
     color: #eee;
-    font-family: "Fraunces", Georgia, serif;
+    font-family: "Public Sans", Arial, sans-serif;
     overflow: hidden;
 }
 
@@ -317,6 +321,11 @@ body {
 .profile-menu .logout-profile {
     color: #b97870;
 }
+
+button, input, select, textarea { font-family: "Public Sans", Arial, sans-serif; }
+.nav-item i, .new-note i, .color-button i, .profile-menu i { margin-right: 7px; }
+.color-button i { margin: 0; }
+.note-action i, .note-delete i { display: block; font-size: 16px; line-height: 25px; }
 
 .workspace {
     flex: 1;
@@ -925,25 +934,8 @@ body {
         line-height: 1;
     }
 
-    /* All Notes */
-    .nav-title + .nav-item::before {
-        content: "▦";
-    }
-
-    /* Pinned */
-    .nav-title + .nav-item + .nav-item::before {
-        content: "📌";
-    }
-
-    /* Favorites */
-    .nav-title + .nav-item + .nav-item + .nav-item::before {
-        content: "♥";
-    }
-
-    /* Archive */
-    .nav-title + .nav-item + .nav-item + .nav-item + .nav-item::before {
-        content: "▣";
-    }
+    .nav-item::before { content: none; }
+    .nav-item i { display: inline-block; margin: 0; font-size: 21px; line-height: 1; }
 
     .new-note {
         display: flex;
@@ -956,10 +948,8 @@ body {
         font-size: 0;
     }
 
-    .new-note::before {
-        content: "+";
-        font-size: 22px;
-    }
+    .new-note::before { content: none; }
+    .new-note i { font-size: 22px; }
 }
 
 @media (max-width: 480px) {
@@ -1014,7 +1004,7 @@ body {
         class="nav-item active"
         onclick="showAllNotes()"
     >
-        ▦ &nbsp; All Notes
+        <i class="ri-sticky-note-line" aria-hidden="true"></i> All Notes
     </button>
 
     <button
@@ -1022,7 +1012,7 @@ body {
         class="nav-item"
         onclick="showPinned()"
     >
-        📌 &nbsp; Pinned
+        <i class="ri-pushpin-line" aria-hidden="true"></i> Pinned
     </button>
 
     <button
@@ -1030,7 +1020,7 @@ body {
         class="nav-item"
         onclick="showFavorites()"
     >
-        ♡ &nbsp; Favorites
+        <i class="ri-heart-line" aria-hidden="true"></i> Favorites
     </button>
 
     <button
@@ -1038,7 +1028,7 @@ body {
         class="nav-item"
         onclick="showArchived()"
     >
-        ▢ &nbsp; Archive
+        <i class="ri-inbox-archive-line" aria-hidden="true"></i> Archive
     </button>
 
     <button
@@ -1046,7 +1036,7 @@ body {
         class="new-note"
         onclick="createNote()"
     >
-        + New Note
+        <i class="ri-add-line" aria-hidden="true"></i> New Note
     </button>
 
     <div class="sidebar-bottom">
@@ -1056,7 +1046,7 @@ body {
             class="nav-item"
             onclick="openSettings()"
         >
-            ⚙ &nbsp; Settings
+            <i class="ri-settings-3-line" aria-hidden="true"></i> Settings
         </button>
 
         <button
@@ -1064,7 +1054,7 @@ body {
             class="nav-item"
             onclick="logout()"
         >
-            ↪ &nbsp; Log out
+            <i class="ri-logout-box-r-line" aria-hidden="true"></i> Log out
         </button>
 
     </div>
@@ -1096,7 +1086,7 @@ body {
             onclick="openSettings()"
             title="Settings"
         >
-            🎨
+            <i class="ri-palette-line" aria-hidden="true"></i>
         </button>
 
         <div class="profile-wrap">
@@ -1106,9 +1096,9 @@ body {
                     <strong id="profileName">Loading...</strong>
                     <span id="profileEmail">Loading...</span>
                 </div>
-                <button type="button" onclick="profileSettings(event)">⚙ &nbsp; Settings</button>
-                <button type="button" onclick="openSessionManager(event)">▣ &nbsp; Sessions</button>
-                <button type="button" class="logout-profile" onclick="logout()">↪ &nbsp; Log out</button>
+                <button type="button" onclick="profileSettings(event)"><i class="ri-settings-3-line" aria-hidden="true"></i> Settings</button>
+                <button type="button" onclick="openSessionManager(event)"><i class="ri-device-line" aria-hidden="true"></i> Sessions</button>
+                <button type="button" class="logout-profile" onclick="logout()"><i class="ri-logout-box-r-line" aria-hidden="true"></i> Log out</button>
             </div>
         </div>
 
@@ -1884,10 +1874,9 @@ function renderNote(note) {
     favoriteButton.className =
         "note-action note-favorite";
 
-    favoriteButton.innerText =
-        note.favorite
-            ? "♥"
-            : "♡";
+    favoriteButton.dataset.active = String(Boolean(note.favorite));
+    favoriteButton.innerHTML =
+        `<i class="${note.favorite ? "ri-heart-fill" : "ri-heart-line"}" aria-hidden="true"></i>`;
 
     favoriteButton.title =
         note.favorite
@@ -1924,8 +1913,9 @@ function renderNote(note) {
     pinButton.className =
         "note-action note-pin";
 
-    pinButton.innerText =
-        note.pinned ? "📌" : "📍";
+    pinButton.dataset.active = String(Boolean(note.pinned));
+    pinButton.innerHTML =
+        `<i class="${note.pinned ? "ri-pushpin-fill" : "ri-pushpin-line"}" aria-hidden="true"></i>`;
 
     pinButton.title =
         note.pinned
@@ -1958,10 +1948,9 @@ function renderNote(note) {
     archiveButton.className =
         "note-action note-archive";
 
-    archiveButton.innerText =
-        note.archived
-            ? "↩"
-            : "▣";
+    archiveButton.dataset.active = String(Boolean(note.archived));
+    archiveButton.innerHTML =
+        `<i class="${note.archived ? "ri-inbox-unarchive-line" : "ri-inbox-archive-line"}" aria-hidden="true"></i>`;
 
     archiveButton.title =
         note.archived
@@ -1991,8 +1980,8 @@ function renderNote(note) {
     deleteButton.className =
         "note-delete";
 
-    deleteButton.innerText =
-        "🗑";
+    deleteButton.innerHTML =
+        '<i class="ri-delete-bin-6-line" aria-hidden="true"></i>';
 
     deleteButton.title =
         "Delete note";
@@ -2657,7 +2646,7 @@ async function toggleFavorite(
     }
 
     const isFavorite =
-        button.innerText === "♡";
+        button.dataset.active !== "true";
 
     const formData =
         new URLSearchParams();
@@ -2699,10 +2688,9 @@ async function toggleFavorite(
             return;
         }
 
-        button.innerText =
-            isFavorite
-                ? "♥"
-                : "♡";
+        button.dataset.active = String(isFavorite);
+        button.innerHTML =
+            `<i class="${isFavorite ? "ri-heart-fill" : "ri-heart-line"}" aria-hidden="true"></i>`;
 
         button.classList.toggle(
             "active",
@@ -2750,7 +2738,7 @@ async function toggleArchive(
     }
 
     const isArchived =
-        button.innerText === "▣";
+        button.dataset.active !== "true";
 
     const formData =
         new URLSearchParams();
@@ -2792,10 +2780,9 @@ async function toggleArchive(
             return;
         }
 
-        button.innerText =
-            isArchived
-                ? "↩"
-                : "▣";
+        button.dataset.active = String(isArchived);
+        button.innerHTML =
+            `<i class="${isArchived ? "ri-inbox-unarchive-line" : "ri-inbox-archive-line"}" aria-hidden="true"></i>`;
 
         button.title =
             isArchived
@@ -2838,7 +2825,7 @@ async function togglePin(
     }
 
     const isPinned =
-        button.innerText === "📍";
+        button.dataset.active !== "true";
 
     const formData =
         new URLSearchParams();
@@ -2880,10 +2867,9 @@ async function togglePin(
             return;
         }
 
-        button.innerText =
-            isPinned
-                ? "📌"
-                : "📍";
+        button.dataset.active = String(isPinned);
+        button.innerHTML =
+            `<i class="${isPinned ? "ri-pushpin-fill" : "ri-pushpin-line"}" aria-hidden="true"></i>`;
 
         button.title =
             isPinned
