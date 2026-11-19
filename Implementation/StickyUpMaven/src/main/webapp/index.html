@@ -1598,16 +1598,16 @@ button, input, select, textarea { font-family: "Public Sans", Arial, sans-serif;
             How it works
         </a>
 
-        <a href="#ideas">
-            Ideas
+        <a href="#demo">
+            Demo
         </a>
 
-        <a href="#about">
+        <a href="#ideas">
             About
         </a>
 
-      <a href="login.html" class="start">
-    Start creating
+      <a href="#demo" class="start">
+    Try the demo
 </a>
     </div>
 
@@ -1643,8 +1643,8 @@ button, input, select, textarea { font-family: "Public Sans", Arial, sans-serif;
     </p>
 
 
-    <button onclick="window.location.href='login.html'">
-    Start creating &rarr;
+    <button onclick="window.location.href='#demo'">
+    Try the demo &rarr;
 </button>
 
 </section>
@@ -1654,7 +1654,7 @@ button, input, select, textarea { font-family: "Public Sans", Arial, sans-serif;
      WORKSPACE
 ================================ -->
 
-<section class="desk-section">
+<section class="desk-section" id="demo">
 
 <div class="demo-tools">
 <button type="button" id="addDemoNote"><i class="ri-add-line" aria-hidden="true"></i> Add note</button>
@@ -1875,6 +1875,7 @@ button, input, select, textarea { font-family: "Public Sans", Arial, sans-serif;
 <section
     class="story"
     id="ideas"
+    aria-label="About StickyUp"
 >
 
 
@@ -1969,8 +1970,8 @@ button, input, select, textarea { font-family: "Public Sans", Arial, sans-serif;
     </p>
 
 
-   <button onclick="window.location.href='login.html'">
-    Start creating &rarr;
+   <button onclick="window.location.href='#demo'">
+    Try the demo &rarr;
 </button>
 
 </section>
@@ -1981,12 +1982,8 @@ button, input, select, textarea { font-family: "Public Sans", Arial, sans-serif;
 ================================ -->
 
 <footer>
-
-   <footer>
     <span>&copy; 2026 StickyUp. All rights reserved.</span>
     <span>Think. Place. Create.</span>
-</footer>
-
 </footer>
 
 
@@ -2174,50 +2171,6 @@ function stopDrag(event) {
 
 
 
-const logoWord =
-    document.querySelector(".logo-word");
-
-logoWord.textContent = "StickyUp";
-
-
-
-
-let wordIndex = 0;
-
-
-setInterval(() => {
-
-    logoWord.classList.add(
-        "change"
-    );
-
-
-    setTimeout(() => {
-
-        wordIndex++;
-
-        if (
-            wordIndex >= words.length
-        ) {
-            wordIndex = 0;
-        }
-
-
-        logoWord.textContent =
-            words[wordIndex];
-
-
-        logoWord.classList.remove(
-            "change"
-        );
-
-    },350);
-
-
-},2200);
-
-
-
 /* ================================
    INTERACTIVE LANDING DEMO
 ================================ */
@@ -2383,3 +2336,4 @@ document.querySelectorAll(".note").forEach(note => {
 
 </body>
 </html>
+
