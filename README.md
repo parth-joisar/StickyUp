@@ -2,10 +2,6 @@
 
 StickyUp is a sticky-note workspace for capturing, arranging, and organizing ideas. The project is a Java web application packaged as a Maven WAR.
 
-<p align="center">
-  <img src="Screenshots/StickyUp_Mockup_Cream.svg" alt="StickyUp workspace shown on desktop and phone" width="100%">
-</p>
-
 ## Features
 
 - Create an account and sign in
@@ -19,7 +15,7 @@ StickyUp/
 ├── Documents/                  Setup and deployment guides
 ├── Implementation/
 │   └── StickyUpMaven/           Java web app, Maven, Docker, and Railway files
-├── Screenshots/                 Desktop page previews
+├── Screenshots/                 Full-page desktop page previews
 └── README.md
 ```
 
@@ -43,20 +39,6 @@ StickyUp/
 <summary>Account creation page</summary>
 
 ![StickyUp sign-up desktop preview](Screenshots/StickyUp_SignUp.svg)
-
-</details>
-
-<details>
-<summary>Workspace</summary>
-
-![StickyUp workspace desktop preview](Screenshots/StickyUp_Workspace.svg)
-
-</details>
-
-<details>
-<summary>Password reset request</summary>
-
-![StickyUp password reset desktop preview](Screenshots/StickyUp_PasswordReset.svg)
 
 </details>
 
@@ -87,12 +69,6 @@ StickyUp/
 
 See [`Documents/DEPLOY-RAILWAY.md`](Documents/DEPLOY-RAILWAY.md) for Railway setup instructions.
 
-The GitHub Pages workflow publishes the interactive landing-page demo at
-`https://parth-joisar.github.io/StickyUp/`. GitHub Pages serves static files only;
-account sign-in, note storage, and other server features require the Java app and
-MySQL database described in the Railway guide.
-
 ## Security note
 
 The current account implementation stores passwords as plain text. This project is suitable for development and demonstration only until password hashing is implemented. Do not use real user accounts or real passwords with it.
-
