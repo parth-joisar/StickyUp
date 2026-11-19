@@ -2,6 +2,10 @@
 
 StickyUp is a sticky-note workspace for capturing, arranging, and organizing ideas. The project is a Java web application packaged as a Maven WAR.
 
+<p align="center">
+  <img src="Screenshots/StickyUp_Mockup_Cream.svg" alt="StickyUp workspace shown on desktop and phone" width="100%">
+</p>
+
 ## Features
 
 - Create an account and sign in
@@ -15,7 +19,7 @@ StickyUp/
 ├── Documents/                  Setup and deployment guides
 ├── Implementation/
 │   └── StickyUpMaven/           Java web app, Maven, Docker, and Railway files
-├── Screenshots/                 Full-page desktop page previews
+├── Screenshots/                 Desktop page previews
 └── README.md
 ```
 
@@ -39,6 +43,20 @@ StickyUp/
 <summary>Account creation page</summary>
 
 ![StickyUp sign-up desktop preview](Screenshots/StickyUp_SignUp.svg)
+
+</details>
+
+<details>
+<summary>Workspace</summary>
+
+![StickyUp workspace desktop preview](Screenshots/StickyUp_Workspace.svg)
+
+</details>
+
+<details>
+<summary>Password reset request</summary>
+
+![StickyUp password reset desktop preview](Screenshots/StickyUp_PasswordReset.svg)
 
 </details>
 
